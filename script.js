@@ -1,61 +1,67 @@
-/* style.css */
-body {
-  margin:0;
-  font-family: Arial;
-  background: linear-gradient(135deg,#1e1e2f,#121212);
-  color:white;
+/* script.js */
+ box.scrollTop = box.scrollHeight;
+ input.value='';
 }
 
-header {
-  padding:15px;
-  background:#00000066;
-  backdrop-filter: blur(10px);
+// NOTES
+function saveNotes(){
+ localStorage.setItem('notes',document.getElementById('notesArea').value);
 }
 
-#search {
-  padding:10px;
-  width:100%;
-  border-radius:10px;
-  border:none;
+// TODO
+function addTodo(){
+ const input=document.getElementById('todoInput');
+ const list=document.getElementById('todoList');
+ if(!input.value) return;
+ const li=document.createElement('li');
+ li.textContent=input.value;
+ li.onclick=()=>{li.remove(); saveTodos();};
+ list.appendChild(li);
+ input.value='';
+ saveTodos();
 }
 
-main {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
-  gap:15px;
-  padding:20px;
+function saveTodos(){
+ const items=[];
+ document.querySelectorAll('#todoList li').forEach(li=>items.push(li.textContent));
+ localStorage.setItem('todos',JSON.stringify(items));
 }
 
-button {
-  padding:15px;
-  border:none;
-  border-radius:15px;
-  background:#ffffff11;
-  color:white;
-  cursor:pointer;
-  transition:0.2s;
+function loadTodos(){
+ const items=JSON.parse(localStorage.getItem('todos')||'[]');
+ const list=document.getElementById('todoList');
+ items.forEach(t=>{
+  const li=document.createElement('li');
+  li.textContent=t;
+  li.onclick=()=>{li.remove(); saveTodos();};
+  list.appendChild(li);
+ });
 }
 
-button:hover {
-  background:#ffffff33;
-  transform: scale(1.05);
+// GAME
+let secret=Math.floor(Math.random()*10)+1;
+function guessNumber(){
+ const guess=document.getElementById('guessInput').value;
+ const result=document.getElementById('gameResult');
+ if(guess==secret){
+  result.textContent='Correct! 🎉';
+  secret=Math.floor(Math.random()*10)+1;
+ } else {
+  result.textContent='Wrong, try again!';
+ }
 }
 
-.tool {
-  padding:20px;
-}
+// SEARCH
+const search=document.getElementById('search');
+search.addEventListener('input',()=>{
+ const val=search.value.toLowerCase();
+ document.querySelectorAll('main button').forEach(btn=>{
+  btn.style.display=btn.textContent.toLowerCase().includes(val)?'block':'none';
+ });
+});
 
-.hidden {display:none;}
-
-textarea {width:100%; height:150px;}
-
-#chatBox {
-  height:200px;
-  overflow:auto;
-  background:#00000055;
-  padding:10px;
-  margin-bottom:10px;
-}
-
-.user {color:#4fc3f7;}
-.bot {color:#81c784;}
+// LOAD
+window.onload=()=>{
+ document.getElementById('notesArea').value=localStorage.getItem('notes')||'';
+ loadTodos();
+};
