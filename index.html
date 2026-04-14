@@ -1,11 +1,10 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ultimate Personal Hub</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Smart Hub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -19,50 +18,70 @@
   <button onclick="openTool('notes')">📝 Notes</button>
   <button onclick="openTool('todo')">✅ To-Do</button>
   <button onclick="openTool('links')">🔗 Links</button>
-  <button onclick="openTool('games')">🎮 Mini Games</button>
+  <button onclick="openTool('games')">🎮 Game</button>
+
+  <!-- NEW -->
+  <button onclick="openTool('timer')">⏱️ Timer</button>
+  <button onclick="openTool('quotes')">💡 Quotes</button>
+  <button onclick="openTool('color')">🎨 Color</button>
+  <button onclick="openTool('clock')">🕒 Clock</button>
+  <button onclick="openTool('password')">🔐 Password</button>
 </main>
 
 <section id="tools">
 
-  <!-- AI CHAT -->
-  <div id="ai" class="tool hidden">
-    <h2>🤖 Simple AI Chat</h2>
-    <div id="chatBox"></div>
-    <input id="chatInput" placeholder="Ask something...">
-    <button onclick="sendMessage()">Send</button>
-  </div>
+<div id="ai" class="tool hidden">
+  <h2>AI Chat</h2>
+  <div id="chatBox"></div>
+  <input id="chatInput">
+  <button onclick="sendMessage()">Send</button>
+</div>
 
-  <!-- NOTES -->
-  <div id="notes" class="tool hidden">
-    <h2>📝 Notes</h2>
-    <textarea id="notesArea"></textarea>
-    <button onclick="saveNotes()">Save</button>
-  </div>
+<div id="notes" class="tool hidden">
+  <textarea id="notesArea"></textarea>
+  <button onclick="saveNotes()">Save</button>
+</div>
 
-  <!-- TODO -->
-  <div id="todo" class="tool hidden">
-    <h2>✅ To-Do</h2>
-    <input id="todoInput" placeholder="New task">
-    <button onclick="addTodo()">Add</button>
-    <ul id="todoList"></ul>
-  </div>
+<div id="todo" class="tool hidden">
+  <input id="todoInput">
+  <button onclick="addTodo()">Add</button>
+  <ul id="todoList"></ul>
+</div>
 
-  <!-- LINKS -->
-  <div id="links" class="tool hidden">
-    <h2>🔗 Quick Links</h2>
-    <a href="https://youtube.com" target="_blank">YouTube</a>
-    <a href="https://google.com" target="_blank">Google</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-  </div>
+<div id="links" class="tool hidden">
+  <a href="https://youtube.com" target="_blank">YouTube</a><br>
+  <a href="https://google.com" target="_blank">Google</a>
+</div>
 
-  <!-- GAMES -->
-  <div id="games" class="tool hidden">
-    <h2>🎮 Guess Number</h2>
-    <p>Guess 1–10</p>
-    <input id="guessInput">
-    <button onclick="guessNumber()">Guess</button>
-    <p id="gameResult"></p>
-  </div>
+<div id="games" class="tool hidden">
+  <button onclick="clickGame()">CLICK FAST</button>
+  <p id="score"></p>
+</div>
+
+<!-- NEW TOOLS -->
+
+<div id="timer" class="tool hidden">
+  <button onclick="startTimer()">Start 5s</button>
+  <p id="timerText"></p>
+</div>
+
+<div id="quotes" class="tool hidden">
+  <button onclick="newQuote()">New Quote</button>
+  <p id="quoteText"></p>
+</div>
+
+<div id="color" class="tool hidden">
+  <input type="color" onchange="changeColor(this.value)">
+</div>
+
+<div id="clock" class="tool hidden">
+  <p id="clockText"></p>
+</div>
+
+<div id="password" class="tool hidden">
+  <button onclick="genPass()">Generate</button>
+  <p id="passText"></p>
+</div>
 
 </section>
 
