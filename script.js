@@ -1,36 +1,22 @@
 function openTool(id){
- document.querySelectorAll('.tool').forEach(t=>t.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
+ return random([
+  'Interesting... tell me more.',
+  'Why do you think that?',
+  'That sounds important.',
+  'I see 👀'
+ ]);
 }
 
-// AI CHAT (simple fake AI)
-function sendMessage(){
- const input=document.getElementById('chatInput');
- const box=document.getElementById('chatBox');
- const msg=input.value.trim();
- if(!msg) return;
-
- box.innerHTML += `<div class="user">You: ${msg}</div>`;
-
- let reply = "I don't understand 😅";
-
- if(msg.includes('hello')) reply = 'Hi there! 👋';
- else if(msg.includes('time')) reply = new Date().toLocaleTimeString();
- else if(msg.includes('date')) reply = new Date().toLocaleDateString();
- else if(msg.includes('name')) reply = 'I am your mini AI 🤖';
- else if(msg.includes('help')) reply = 'Try asking about time, date, or say hello!';
-
- box.innerHTML += `<div class="bot">Bot: ${reply}</div>`;
- box.scrollTop = box.scrollHeight;
- input.value='';
+function random(arr){
+ return arr[Math.floor(Math.random()*arr.length)];
 }
 
-// NOTES
+// ===== NOTES =====
 function saveNotes(){
  localStorage.setItem('notes',document.getElementById('notesArea').value);
 }
 
-// TODO
+// ===== TODO =====
 function addTodo(){
  const input=document.getElementById('todoInput');
  const list=document.getElementById('todoList');
@@ -47,4 +33,43 @@ function saveTodos(){
  const items=[];
  document.querySelectorAll('#todoList li').forEach(li=>items.push(li.textContent));
  localStorage.setItem('todos',JSON.stringify(items));
+}
+
+function loadTodos(){
+ const items=JSON.parse(localStorage.getItem('todos')||'[]');
+ const list=document.getElementById('todoList');
+ items.forEach(t=>{
+  const li=document.createElement('li');
+  li.textContent=t;
+  li.onclick=()=>{li.remove(); saveTodos();};
+  list.appendChild(li);
+ });
+}
+
+// ===== GAME =====
+let secret=Math.floor(Math.random()*10)+1;
+function guessNumber(){
+ const guess=document.getElementById('guessInput').value;
+ const result=document.getElementById('gameResult');
+ if(guess==secret){
+  result.textContent='Correct! 🎉';
+  secret=Math.floor(Math.random()*10)+1;
+ } else {
+  result.textContent='Wrong, try again!';
+ }
+}
+
+// ===== SEARCH =====
+const search=document.getElementById('search');
+search.addEventListener('input',()=>{
+ const val=search.value.toLowerCase();
+ document.querySelectorAll('main button').forEach(btn=>{
+  btn.style.display=btn.textContent.toLowerCase().includes(val)?'block':'none';
+ });
+});
+
+// ===== LOAD =====
+window.onload=()=>{
+ document.getElementById('notesArea').value=localStorage.getItem('notes')||'';
+ loadTodos();
 };
