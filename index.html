@@ -1,29 +1,71 @@
 <!-- index.html -->
-      <button onclick="saveNotes()">Save</button>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Personal Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <div id="todo" class="tool hidden">
-      <h2>To-Do</h2>
-      <input type="text" id="todoInput" placeholder="New task">
-      <button onclick="addTodo()">Add</button>
-      <ul id="todoList"></ul>
-    </div>
+<header>
+  <h1>⚡ My Smart Hub</h1>
+  <input type="text" id="search" placeholder="Search tools...">
+</header>
 
-    <div id="calculator" class="tool hidden">
-      <h2>Calculator</h2>
-      <input type="text" id="calcInput" placeholder="2+2">
-      <button onclick="calculate()">=</button>
-      <p id="calcResult"></p>
-    </div>
+<main id="menu">
+  <button onclick="openTool('ai')">🤖 AI Chat</button>
+  <button onclick="openTool('notes')">📝 Notes</button>
+  <button onclick="openTool('todo')">✅ To-Do</button>
+  <button onclick="openTool('links')">🔗 Links</button>
+  <button onclick="openTool('games')">🎮 Mini Games</button>
+</main>
 
-    <div id="links" class="tool hidden">
-      <h2>Quick Links</h2>
-      <a href="https://youtube.com" target="_blank">YouTube</a>
-      <a href="https://google.com" target="_blank">Google</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
-    </div>
-  </section>
+<section id="tools">
 
-  <script src="script.js"></script>
+  <!-- AI CHAT -->
+  <div id="ai" class="tool hidden">
+    <h2>🤖 Simple AI Chat</h2>
+    <div id="chatBox"></div>
+    <input id="chatInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <!-- NOTES -->
+  <div id="notes" class="tool hidden">
+    <h2>📝 Notes</h2>
+    <textarea id="notesArea"></textarea>
+    <button onclick="saveNotes()">Save</button>
+  </div>
+
+  <!-- TODO -->
+  <div id="todo" class="tool hidden">
+    <h2>✅ To-Do</h2>
+    <input id="todoInput" placeholder="New task">
+    <button onclick="addTodo()">Add</button>
+    <ul id="todoList"></ul>
+  </div>
+
+  <!-- LINKS -->
+  <div id="links" class="tool hidden">
+    <h2>🔗 Quick Links</h2>
+    <a href="https://youtube.com" target="_blank">YouTube</a>
+    <a href="https://google.com" target="_blank">Google</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+
+  <!-- GAMES -->
+  <div id="games" class="tool hidden">
+    <h2>🎮 Guess Number</h2>
+    <p>Guess 1–10</p>
+    <input id="guessInput">
+    <button onclick="guessNumber()">Guess</button>
+    <p id="gameResult"></p>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
