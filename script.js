@@ -1,4 +1,82 @@
 function openTool(id){
+ document.querySelectorAll('.tool').forEach(t=>t.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+}
+
+// ===== SMARTER AI CHAT =====
+const memory = [];
+
+function sendMessage(){
+ const input=document.getElementById('chatInput');
+ const box=document.getElementById('chatBox');
+ const msg=input.value.trim();
+ if(!msg) return;
+
+ memory.push({role:'user', content:msg});
+
+ box.innerHTML += `<div class="user">You: ${msg}</div>`;
+
+ const reply = generateAI(msg);
+
+ memory.push({role:'bot', content:reply});
+
+ box.innerHTML += `<div class="bot">Bot: ${reply}</div>`;
+ box.scrollTop = box.scrollHeight;
+ input.value='';
+}
+
+function generateAI(msg){
+ msg = msg.toLowerCase();
+
+ // basic intelligence patterns
+ if(msg.includes('hello') || msg.includes('hi')) return random([
+  'Hey 👋', 'Hello there!', 'Hi 😄'
+ ]);
+
+ if(msg.includes('how are you')) return random([
+  'I am just code, but I feel awesome 😎',
+  'Running perfectly ⚡',
+  'All systems good 🤖'
+ ]);
+
+ if(msg.includes('time')) return new Date().toLocaleTimeString();
+ if(msg.includes('date')) return new Date().toLocaleDateString();
+
+ if(msg.includes('your name')) return 'I am your personal AI assistant 🤖';
+
+ if(msg.includes('who made you')) return 'You did 😎 (well... with a little help)';
+
+ if(msg.includes('help')) return 'Try asking me anything simple. I learn patterns 😉';
+
+ if(msg.includes('bye')) return 'Goodbye! 👋';
+
+ // simple learning memory (very basic)
+ const last = memory.slice(-4).map(m=>m.content).join(' ');
+
+ if(msg.includes('remember')){
+  localStorage.setItem('ai_memory', msg.replace('remember','').trim());
+  return 'Okay, I will remember that 👍';
+ }
+
+ if(msg.includes('what did i say')){
+  return localStorage.getItem('ai_memory') || 'I don\'t remember anything yet.';
+ }
+
+ // fallback smarter response
+ return smartReply(msg, last);
+}
+
+function smartReply(msg, context){
+ if(msg.includes('?')){
+  return random([
+    'That\'s an interesting question 🤔',
+    'I\'m not fully sure, but it sounds important.',
+    'Let me think about that...'
+  ]);
+ }
+
+ if(msg.length < 5) return 'Can you say more?';
+
  return random([
   'Interesting... tell me more.',
   'Why do you think that?',
