@@ -501,3 +501,13 @@ db.ref("chat").on("child_added", snap=>{
  liveChatBox.appendChild(div);
  liveChatBox.scrollTop = liveChatBox.scrollHeight;
 });
+
+function loadYT(){
+ let url = ytLink.value;
+
+ let id = url.split("v=")[1];
+ if(id && id.includes("&")) id = id.split("&")[0];
+
+ ytPlayer.src = "https://www.youtube.com/embed/" + id;
+}
+
