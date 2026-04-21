@@ -511,3 +511,19 @@ function loadYT(){
  ytPlayer.src = "https://www.youtube.com/embed/" + id;
 }
 
+// ===== BASE64 =====
+function encodeB64(){
+ try{
+  b64Result.textContent = btoa(b64Input.value);
+ }catch{
+  b64Result.textContent = "Error encoding";
+ }
+}
+
+function decodeB64(){
+ try{
+  b64DecodeResult.textContent = atob(b64DecodeInput.value);
+ }catch{
+  b64DecodeResult.textContent = "Invalid Base64";
+ }
+}
