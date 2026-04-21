@@ -477,3 +477,27 @@ function genList(){
  }
  passListText.textContent=out;
 }
+
+// ===== LIVE CHAT =====
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_APP.firebaseapp.com",
+  databaseURL: "https://YOUR_APP-default-rtdb.firebaseio.com",
+  projectId: "YOUR_APP"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+function sendLive(){
+ const msg = liveInput.value;
+ db.ref("chat").push(msg);
+ liveInput.value="";
+}
+
+db.ref("chat").on("child_added", snap=>{
+ const div=document.createElement("div");
+ div.textContent=snap.val();
+ liveChatBox.appendChild(div);
+ liveChatBox.scrollTop = liveChatBox.scrollHeight;
+});
