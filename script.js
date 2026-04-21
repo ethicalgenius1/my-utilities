@@ -233,3 +233,13 @@ function goFull(){
 function randomNum(){
  randomText.textContent = Math.floor(Math.random()*100)+1;
 }
+
+// ===== GOOGLE SEARCH =====
+function searchGoogle(){
+ const q = document.getElementById("gQuery").value;
+ const frame = document.getElementById("gFrame");
+
+ if(!q) return;
+
+ frame.src = "https://www.google.com/search?q=" + encodeURIComponent(q);
+}
