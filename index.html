@@ -57,6 +57,31 @@
 <button onclick="openTool('clipboardPlus')">📋 Clipboard+</button>
 <button onclick="openTool('wordCount')">📊 Word Counter</button>
 <button onclick="openTool('json')">🧾 JSON Viewer</button>
+  <button onclick="openTool('calendar')">📅 Calendar</button>
+<button onclick="openTool('reminder')">⏰ Reminder</button>
+<button onclick="openTool('alarm')">⏰ Alarm</button>
+<button onclick="openTool('stopwatchPro')">⏱️ Stopwatch+</button>
+<button onclick="openTool('percentage')">📊 Percentage</button>
+<button onclick="openTool('tip')">💰 Tip Calculator</button>
+<button onclick="openTool('randomPicker')">🎯 Random Picker</button>
+<button onclick="openTool('dice')">🎲 Dice</button>
+<button onclick="openTool('coin')">🪙 Coin Flip</button>
+<button onclick="openTool('colorGen')">🌈 Color Generator</button>
+<button onclick="openTool('gradient')">🎨 Gradient</button>
+<button onclick="openTool('passwordGenPro')">🔐 Password+</button>
+<button onclick="openTool('timeConvert')">⏳ Time Converter</button>
+<button onclick="openTool('age')">🎂 Age Calculator</button>
+<button onclick="openTool('speedTest')">🚀 Speed Test</button>
+<button onclick="openTool('qrScan')">📷 QR Scanner</button>
+<button onclick="openTool('imageInfo')">🖼️ Image Info</button>
+<button onclick="openTool('notepadPro')">📝 Notepad Pro</button>
+<button onclick="openTool('listMaker')">📋 List Maker</button>
+<button onclick="openTool('decision')">🤔 Decision Maker</button>
+<button onclick="openTool('unitPlus')">📏 Unit+</button>
+<button onclick="openTool('countdown')">⏳ Countdown</button>
+<button onclick="openTool('textReverse')">🔁 Reverse Text</button>
+<button onclick="openTool('caseConvert')">🔤 Case Convert</button>
+<button onclick="openTool('passwordList')">🔑 Password List</button>
 </main>
 
 <section id="tools">
@@ -312,6 +337,170 @@
   <textarea id="jsonInput"></textarea>
   <button onclick="formatJSON()">Format</button>
   <pre id="jsonOutput"></pre>
+</div>
+
+  <!-- CALENDAR -->
+<div id="calendar" class="tool hidden">
+  <input type="date">
+</div>
+
+<!-- REMINDER -->
+<div id="reminder" class="tool hidden">
+  <input id="reminderText">
+  <button onclick="setReminder()">Set 5s</button>
+</div>
+
+<!-- ALARM -->
+<div id="alarm" class="tool hidden">
+  <input type="time" id="alarmTime">
+  <button onclick="setAlarm()">Set</button>
+  <p id="alarmStatus"></p>
+</div>
+
+<!-- STOPWATCH -->
+<div id="stopwatchPro" class="tool hidden">
+  <button onclick="startSW2()">Start</button>
+  <button onclick="stopSW2()">Stop</button>
+  <button onclick="resetSW2()">Reset</button>
+  <p id="sw2Text">0</p>
+</div>
+
+<!-- PERCENT -->
+<div id="percentage" class="tool hidden">
+  <input id="percA">
+  <input id="percB">
+  <button onclick="calcPerc()">Calc</button>
+  <p id="percResult"></p>
+</div>
+
+<!-- TIP -->
+<div id="tip" class="tool hidden">
+  <input id="bill">
+  <input id="tipPercent">
+  <button onclick="calcTip()">Calc</button>
+  <p id="tipResult"></p>
+</div>
+
+<!-- RANDOM PICKER -->
+<div id="randomPicker" class="tool hidden">
+  <textarea id="pickerInput"></textarea>
+  <button onclick="pickRandom()">Pick</button>
+  <p id="pickerResult"></p>
+</div>
+
+<!-- DICE -->
+<div id="dice" class="tool hidden">
+  <button onclick="rollDice()">Roll</button>
+  <p id="diceResult"></p>
+</div>
+
+<!-- COIN -->
+<div id="coin" class="tool hidden">
+  <button onclick="flipCoin()">Flip</button>
+  <p id="coinResult"></p>
+</div>
+
+<!-- COLOR -->
+<div id="colorGen" class="tool hidden">
+  <button onclick="genColor()">Generate</button>
+  <p id="colorText"></p>
+</div>
+
+<!-- GRADIENT -->
+<div id="gradient" class="tool hidden">
+  <button onclick="genGradient()">Generate</button>
+</div>
+
+<!-- PASSWORD -->
+<div id="passwordGenPro" class="tool hidden">
+  <button onclick="genPassPro()">Generate</button>
+  <p id="passProText"></p>
+</div>
+
+<!-- TIME -->
+<div id="timeConvert" class="tool hidden">
+  <input id="minutesInput">
+  <button onclick="convertTime()">Convert</button>
+  <p id="timeResult"></p>
+</div>
+
+<!-- AGE -->
+<div id="age" class="tool hidden">
+  <input type="date" id="birth">
+  <button onclick="calcAge()">Calc</button>
+  <p id="ageResult"></p>
+</div>
+
+<!-- SPEED -->
+<div id="speedTest" class="tool hidden">
+  <button onclick="testSpeed()">Test</button>
+  <p id="speedResult"></p>
+</div>
+
+<!-- QR -->
+<div id="qrScan" class="tool hidden">
+  <input type="file" onchange="scanQR(this)">
+  <p id="qrScanText"></p>
+</div>
+
+<!-- IMAGE -->
+<div id="imageInfo" class="tool hidden">
+  <input type="file" onchange="imgInfo(this)">
+  <p id="imgText"></p>
+</div>
+
+<!-- NOTEPAD PRO -->
+<div id="notepadPro" class="tool hidden">
+  <textarea id="npText"></textarea>
+  <button onclick="saveNP()">Save</button>
+</div>
+
+<!-- LIST MAKER -->
+<div id="listMaker" class="tool hidden">
+  <input id="listInput">
+  <button onclick="addList()">Add</button>
+  <ul id="listUl"></ul>
+</div>
+
+<!-- DECISION -->
+<div id="decision" class="tool hidden">
+  <textarea id="decInput"></textarea>
+  <button onclick="decide()">Decide</button>
+  <p id="decResult"></p>
+</div>
+
+<!-- UNIT+ -->
+<div id="unitPlus" class="tool hidden">
+  <input id="cmInput">
+  <button onclick="cmToIn()">cm → inches</button>
+  <p id="unitPlusResult"></p>
+</div>
+
+<!-- COUNTDOWN -->
+<div id="countdown" class="tool hidden">
+  <input id="cdInput" placeholder="seconds">
+  <button onclick="startCD()">Start</button>
+  <p id="cdText"></p>
+</div>
+
+<!-- REVERSE TEXT -->
+<div id="textReverse" class="tool hidden">
+  <input id="revInput">
+  <button onclick="reverseText()">Reverse</button>
+  <p id="revResult"></p>
+</div>
+
+<!-- CASE CONVERT -->
+<div id="caseConvert" class="tool hidden">
+  <input id="caseInput">
+  <button onclick="upperCase()">UPPER</button>
+  <button onclick="lowerCase()">lower</button>
+</div>
+
+<!-- PASSWORD LIST -->
+<div id="passwordList" class="tool hidden">
+  <button onclick="genList()">Generate 5</button>
+  <p id="passListText"></p>
 </div>
 
 </section>
