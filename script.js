@@ -237,9 +237,7 @@ function randomNum(){
 // ===== GOOGLE SEARCH =====
 function searchGoogle(){
  const q = document.getElementById("gQuery").value;
- const frame = document.getElementById("gFrame");
-
  if(!q) return;
 
- frame.src = "https://www.google.com/search?q=" + encodeURIComponent(q);
+ window.open("https://www.google.com/search?q=" + encodeURIComponent(q), "_blank");
 }
