@@ -166,3 +166,70 @@ search.oninput=()=>{
   b.style.display=b.textContent.toLowerCase().includes(v)?"block":"none";
  });
 };
+
+// ===== CALCULATOR =====
+function calculate(){
+ try{
+  calcResult.textContent = eval(calcInput.value);
+ }catch{
+  calcResult.textContent = "Error";
+ }
+}
+
+// ===== UNIT CONVERTER =====
+function convertKM(){
+ unitResult.textContent = (kmInput.value * 0.621371).toFixed(2) + " miles";
+}
+
+// ===== WEATHER =====
+async function getWeather(){
+ const city = cityInput.value;
+ const res = await fetch(`https://wttr.in/${city}?format=3`);
+ const data = await res.text();
+ weatherResult.textContent = data;
+}
+
+// ===== STOPWATCH =====
+let sw=0, swi;
+function startSW(){
+ swi=setInterval(()=>{
+  sw++;
+  swText.textContent=sw;
+ },1000);
+}
+function stopSW(){
+ clearInterval(swi);
+}
+
+// ===== CLIPBOARD =====
+function copyText(){
+ navigator.clipboard.writeText(clipInput.value);
+}
+
+// ===== QR =====
+function genQR(){
+ qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrInput.value}`;
+}
+
+// ===== IP =====
+async function getIP(){
+ const res = await fetch("https://api.ipify.org?format=json");
+ const data = await res.json();
+ ipText.textContent = data.ip;
+}
+
+// ===== BATTERY =====
+async function getBattery(){
+ const b = await navigator.getBattery();
+ batteryText.textContent = Math.round(b.level*100) + "%";
+}
+
+// ===== FULLSCREEN =====
+function goFull(){
+ document.documentElement.requestFullscreen();
+}
+
+// ===== RANDOM =====
+function randomNum(){
+ randomText.textContent = Math.floor(Math.random()*100)+1;
+}
