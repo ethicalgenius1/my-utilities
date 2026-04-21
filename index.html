@@ -515,6 +515,23 @@
   <button onclick="sendLive()">Send</button>
 </div>
 
+<div id="musicRoom" class="tool hidden">
+  <h2>Music Room</h2>
+  <input id="ytLink" placeholder="Paste YouTube URL">
+  <button onclick="loadYT()">Play</button>
+  <iframe id="ytPlayer" width="100%" height="200"></iframe>
+</div>
+
+  <div id="wheel" class="tool hidden">
+  <h2>Spin Wheel</h2>
+  <iframe 
+    src="https://wheelofnames.com/" 
+    width="100%" 
+    height="400"
+    style="border:none;">
+  </iframe>
+</div>
+  
 </section>
 
 <script src="script.js"></script>
