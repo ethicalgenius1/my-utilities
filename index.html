@@ -82,6 +82,9 @@
 <button onclick="openTool('textReverse')">🔁 Reverse Text</button>
 <button onclick="openTool('caseConvert')">🔤 Case Convert</button>
 <button onclick="openTool('passwordList')">🔑 Password List</button>
+<button onclick="openTool('chatLive')">💬 Live Chat</button>
+<button onclick="openTool('musicRoom')">🎵 Music Room</button>
+<button onclick="openTool('wheel')">🎡 Spin Wheel</button>
 </main>
 
 <section id="tools">
@@ -501,6 +504,13 @@
 <div id="passwordList" class="tool hidden">
   <button onclick="genList()">Generate 5</button>
   <p id="passListText"></p>
+</div>
+
+  <div id="chatLive" class="tool hidden">
+  <h2>Live Chat</h2>
+  <div id="liveChatBox" style="height:200px; overflow:auto; background:#000;"></div>
+  <input id="liveInput">
+  <button onclick="sendLive()">Send</button>
 </div>
 
 </section>
