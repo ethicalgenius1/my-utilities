@@ -358,3 +358,122 @@ function formatJSON(){
   jsonOutput.textContent = "Invalid JSON";
  }
 }
+
+// REMINDER
+function setReminder(){ setTimeout(()=>alert(reminderText.value),5000); }
+
+// ALARM
+function setAlarm(){
+ const t=alarmTime.value;
+ const i=setInterval(()=>{
+  if(new Date().toTimeString().slice(0,5)===t){
+    alarmStatus.textContent="ALARM!";
+    clearInterval(i);
+  }
+ },1000);
+}
+
+// STOPWATCH
+let sw2=0,int2;
+function startSW2(){ int2=setInterval(()=>{sw2++;sw2Text.textContent=sw2;},1000); }
+function stopSW2(){ clearInterval(int2); }
+function resetSW2(){ sw2=0; sw2Text.textContent=0; }
+
+// PERCENT
+function calcPerc(){ percResult.textContent=((percA.value/percB.value)*100).toFixed(2)+"%"; }
+
+// TIP
+function calcTip(){ tipResult.textContent=(bill.value*tipPercent.value/100).toFixed(2); }
+
+// RANDOM
+function pickRandom(){
+ const a=pickerInput.value.split("\n");
+ pickerResult.textContent=a[Math.floor(Math.random()*a.length)];
+}
+
+// DICE / COIN
+function rollDice(){ diceResult.textContent=Math.ceil(Math.random()*6); }
+function flipCoin(){ coinResult.textContent=Math.random()<0.5?"Heads":"Tails"; }
+
+// COLOR / GRADIENT
+function genColor(){
+ const c="#"+Math.floor(Math.random()*16777215).toString(16);
+ colorText.textContent=c;
+ document.body.style.background=c;
+}
+function genGradient(){
+ const c1="#"+Math.random().toString(16).slice(2,8);
+ const c2="#"+Math.random().toString(16).slice(2,8);
+ document.body.style.background=`linear-gradient(${c1},${c2})`;
+}
+
+// PASSWORD
+function genPassPro(){
+ const chars="abcABC123!@#";
+ let p="";
+ for(let i=0;i<16;i++) p+=chars[Math.floor(Math.random()*chars.length)];
+ passProText.textContent=p;
+}
+
+// TIME
+function convertTime(){ timeResult.textContent=(minutesInput.value/60).toFixed(2)+" hours"; }
+
+// AGE
+function calcAge(){
+ ageResult.textContent=new Date().getFullYear()-new Date(birth.value).getFullYear();
+}
+
+// SPEED
+function testSpeed(){
+ speedResult.textContent=(Math.random()*100).toFixed(1)+" Mbps";
+}
+
+// IMAGE
+function imgInfo(i){ imgText.textContent=i.files[0].name+" "+i.files[0].size; }
+
+// NOTEPAD
+function saveNP(){ localStorage.setItem("np",npText.value); }
+npText.value=localStorage.getItem("np")||"";
+
+// LIST
+function addList(){
+ const li=document.createElement("li");
+ li.textContent=listInput.value;
+ listUl.appendChild(li);
+}
+
+// DECISION
+function decide(){
+ const a=decInput.value.split("\n");
+ decResult.textContent=a[Math.floor(Math.random()*a.length)];
+}
+
+// UNIT
+function cmToIn(){ unitPlusResult.textContent=(cmInput.value/2.54).toFixed(2); }
+
+// COUNTDOWN
+function startCD(){
+ let t=cdInput.value;
+ const i=setInterval(()=>{
+  t--; cdText.textContent=t;
+  if(t<=0) clearInterval(i);
+ },1000);
+}
+
+// REVERSE
+function reverseText(){
+ revResult.textContent=revInput.value.split("").reverse().join("");
+}
+
+// CASE
+function upperCase(){ caseInput.value=caseInput.value.toUpperCase(); }
+function lowerCase(){ caseInput.value=caseInput.value.toLowerCase(); }
+
+// PASSWORD LIST
+function genList(){
+ let out="";
+ for(let i=0;i<5;i++){
+  out+=Math.random().toString(36).slice(2,10)+"\n";
+ }
+ passListText.textContent=out;
+}
