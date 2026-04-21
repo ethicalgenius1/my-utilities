@@ -241,3 +241,120 @@ function searchGoogle(){
 
  window.open("https://www.google.com/search?q=" + encodeURIComponent(q), "_blank");
 }
+
+// PRO CALC
+function calcPro(){
+ try{ calcProResult.textContent = eval(calcProInput.value); }
+ catch{ calcProResult.textContent = "Error"; }
+}
+
+// NOTES+
+function saveNotesPlus(){
+ localStorage.setItem("notesPlus", notesPlusArea.value);
+}
+notesPlusArea.value = localStorage.getItem("notesPlus")||"";
+
+// DRAW
+let ctx = canvas.getContext("2d");
+canvas.onmousemove = e=>{
+ if(e.buttons) ctx.fillRect(e.offsetX,e.offsetY,2,2);
+};
+
+// FILE
+function readFile(input){
+ const reader=new FileReader();
+ reader.onload=e=>fileContent.textContent=e.target.result;
+ reader.readAsText(input.files[0]);
+}
+
+// TEXT
+function toUpper(){ textInput.value=textInput.value.toUpperCase(); }
+function toLower(){ textInput.value=textInput.value.toLowerCase(); }
+
+// COUNTER
+let c=0;
+function countUp(){ c++; countText.textContent=c; }
+
+// PASSWORD
+function checkPass(){
+ const v=passCheck.value.length;
+ passStrength.textContent = v<5?"Weak":v<10?"Medium":"Strong";
+}
+
+// UUID
+function genUUID(){
+ uuidText.textContent = crypto.randomUUID();
+}
+
+// MARKDOWN
+function renderMD(){
+ mdOutput.innerHTML = mdInput.value.replace(/\*\*(.*?)\*\*/g,"<b>$1</b>");
+}
+
+// SPEECH
+function startSpeech(){
+ const rec=new(window.SpeechRecognition||webkitSpeechRecognition)();
+ rec.onresult=e=>speechText.textContent=e.results[0][0].transcript;
+ rec.start();
+}
+
+// TTS
+function speak(){
+ speechSynthesis.speak(new SpeechSynthesisUtterance(ttsInput.value));
+}
+
+// VIBRATE
+function vibrate(){ navigator.vibrate(200); }
+
+// FLASH
+async function flash(){
+ try{ await navigator.mediaDevices.getUserMedia({video:{torch:true}}); }catch{}
+}
+
+// DEVICE
+function deviceInfo(){
+ deviceText.textContent = navigator.userAgent;
+}
+
+// ORIENTATION
+function getOrientation(){
+ oriText.textContent = screen.orientation.type;
+}
+
+// STORAGE
+function storageInfo(){
+ storageText.textContent = localStorage.length + " items stored";
+}
+
+// FOCUS
+function startFocus(){
+ let t=1500;
+ const i=setInterval(()=>{
+  t--;
+  focusText.textContent = Math.floor(t/60)+":"+(t%60).toString().padStart(2,"0");
+  if(t<=0){
+    clearInterval(i);
+    focusText.textContent="Break!";
+  }
+ },1000);
+}
+
+// CLIPBOARD+
+function copyPlus(){ navigator.clipboard.writeText(clipPlusInput.value); }
+async function pastePlus(){ clipPlusInput.value = await navigator.clipboard.readText(); }
+
+// WORD COUNT
+function countWords(){
+ const text = wordInput.value.trim();
+ const words = text ? text.split(/\s+/).length : 0;
+ wordResult.textContent = "Words: "+words+" | Chars: "+text.length;
+}
+
+// JSON
+function formatJSON(){
+ try{
+  jsonOutput.textContent = JSON.stringify(JSON.parse(jsonInput.value),null,2);
+ }catch{
+  jsonOutput.textContent = "Invalid JSON";
+ }
+}
