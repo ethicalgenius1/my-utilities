@@ -93,6 +93,70 @@
   <p id="passText"></p>
 </div>
 
+  <!-- CALCULATOR -->
+<div id="calc" class="tool hidden">
+  <input id="calcInput" placeholder="2+2">
+  <button onclick="calculate()">=</button>
+  <p id="calcResult"></p>
+</div>
+
+<!-- UNIT CONVERTER -->
+<div id="unit" class="tool hidden">
+  <input id="kmInput" placeholder="KM">
+  <button onclick="convertKM()">To Miles</button>
+  <p id="unitResult"></p>
+</div>
+
+<!-- WEATHER (API) -->
+<div id="weather" class="tool hidden">
+  <input id="cityInput" placeholder="City">
+  <button onclick="getWeather()">Get Weather</button>
+  <p id="weatherResult"></p>
+</div>
+
+<!-- STOPWATCH -->
+<div id="stopwatch" class="tool hidden">
+  <button onclick="startSW()">Start</button>
+  <button onclick="stopSW()">Stop</button>
+  <p id="swText">0</p>
+</div>
+
+<!-- CLIPBOARD -->
+<div id="clipboard" class="tool hidden">
+  <input id="clipInput">
+  <button onclick="copyText()">Copy</button>
+</div>
+
+<!-- QR GENERATOR -->
+<div id="qr" class="tool hidden">
+  <input id="qrInput">
+  <button onclick="genQR()">Generate</button>
+  <img id="qrImg">
+</div>
+
+<!-- IP INFO -->
+<div id="ip" class="tool hidden">
+  <button onclick="getIP()">Get My IP</button>
+  <p id="ipText"></p>
+</div>
+
+<!-- BATTERY -->
+<div id="battery" class="tool hidden">
+  <button onclick="getBattery()">Check Battery</button>
+  <p id="batteryText"></p>
+</div>
+
+<!-- FULLSCREEN -->
+<div id="fullscreen" class="tool hidden">
+  <button onclick="goFull()">Enter Fullscreen</button>
+</div>
+
+<!-- RANDOM -->
+<div id="random" class="tool hidden">
+  <button onclick="randomNum()">Random 1-100</button>
+  <p id="randomText"></p>
+</div>
+
 </section>
 
 <script src="script.js"></script>
