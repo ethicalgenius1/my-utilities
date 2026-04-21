@@ -37,6 +37,26 @@
 <button onclick="openTool('fullscreen')">🖥️ Fullscreen</button>
 <button onclick="openTool('random')">🎲 Random Generator</button>
   <button onclick="openTool('googleSearch')">🌍 Google++</button>
+  <button onclick="openTool('calcPro')">🧮 Pro Calc</button>
+<button onclick="openTool('notesPlus')">📓 Notes+</button>
+<button onclick="openTool('draw')">✏️ Draw</button>
+<button onclick="openTool('files')">📁 File Viewer</button>
+<button onclick="openTool('textTools')">🔤 Text Tools</button>
+<button onclick="openTool('counter')">🔢 Counter</button>
+<button onclick="openTool('passwordCheck')">🛡️ Password Check</button>
+<button onclick="openTool('uuid')">🆔 UUID</button>
+<button onclick="openTool('markdown')">📝 Markdown</button>
+<button onclick="openTool('speech')">🎤 Speech</button>
+<button onclick="openTool('tts')">🔊 Text to Speech</button>
+<button onclick="openTool('vibrate')">📳 Vibrate</button>
+<button onclick="openTool('flashlight')">🔦 Flashlight</button>
+<button onclick="openTool('device')">📱 Device Info</button>
+<button onclick="openTool('orientation')">🧭 Orientation</button>
+<button onclick="openTool('storage')">💾 Storage</button>
+<button onclick="openTool('focus')">🎯 Focus Timer</button>
+<button onclick="openTool('clipboardPlus')">📋 Clipboard+</button>
+<button onclick="openTool('wordCount')">📊 Word Counter</button>
+<button onclick="openTool('json')">🧾 JSON Viewer</button>
 </main>
 
 <section id="tools">
@@ -168,6 +188,130 @@
   <script async src="https://cse.google.com/cse.js?cx=e0286dc3be5fc40a6">
 </script>
 <div class="gcse-search"></div>
+</div>
+
+  <!-- PRO CALC -->
+<div id="calcPro" class="tool hidden">
+  <input id="calcProInput" placeholder="2+2, Math.sqrt(9)">
+  <button onclick="calcPro()">=</button>
+  <p id="calcProResult"></p>
+</div>
+
+<!-- NOTES+ -->
+<div id="notesPlus" class="tool hidden">
+  <textarea id="notesPlusArea"></textarea>
+  <button onclick="saveNotesPlus()">Save</button>
+</div>
+
+<!-- DRAW -->
+<div id="draw" class="tool hidden">
+  <canvas id="canvas" width="300" height="300" style="border:1px solid white;"></canvas>
+</div>
+
+<!-- FILE VIEWER -->
+<div id="files" class="tool hidden">
+  <input type="file" onchange="readFile(this)">
+  <pre id="fileContent"></pre>
+</div>
+
+<!-- TEXT TOOLS -->
+<div id="textTools" class="tool hidden">
+  <input id="textInput">
+  <button onclick="toUpper()">UPPER</button>
+  <button onclick="toLower()">lower</button>
+</div>
+
+<!-- COUNTER -->
+<div id="counter" class="tool hidden">
+  <button onclick="countUp()">+</button>
+  <p id="countText">0</p>
+</div>
+
+<!-- PASSWORD CHECK -->
+<div id="passwordCheck" class="tool hidden">
+  <input id="passCheck">
+  <button onclick="checkPass()">Check</button>
+  <p id="passStrength"></p>
+</div>
+
+<!-- UUID -->
+<div id="uuid" class="tool hidden">
+  <button onclick="genUUID()">Generate</button>
+  <p id="uuidText"></p>
+</div>
+
+<!-- MARKDOWN -->
+<div id="markdown" class="tool hidden">
+  <textarea id="mdInput"></textarea>
+  <button onclick="renderMD()">Render</button>
+  <div id="mdOutput"></div>
+</div>
+
+<!-- SPEECH -->
+<div id="speech" class="tool hidden">
+  <button onclick="startSpeech()">Start</button>
+  <p id="speechText"></p>
+</div>
+
+<!-- TTS -->
+<div id="tts" class="tool hidden">
+  <input id="ttsInput">
+  <button onclick="speak()">Speak</button>
+</div>
+
+<!-- VIBRATE -->
+<div id="vibrate" class="tool hidden">
+  <button onclick="vibrate()">Vibrate</button>
+</div>
+
+<!-- FLASHLIGHT -->
+<div id="flashlight" class="tool hidden">
+  <button onclick="flash()">Flash</button>
+</div>
+
+<!-- DEVICE -->
+<div id="device" class="tool hidden">
+  <button onclick="deviceInfo()">Show</button>
+  <p id="deviceText"></p>
+</div>
+
+<!-- ORIENTATION -->
+<div id="orientation" class="tool hidden">
+  <button onclick="getOrientation()">Check</button>
+  <p id="oriText"></p>
+</div>
+
+<!-- STORAGE -->
+<div id="storage" class="tool hidden">
+  <button onclick="storageInfo()">Check</button>
+  <p id="storageText"></p>
+</div>
+
+<!-- FOCUS TIMER -->
+<div id="focus" class="tool hidden">
+  <button onclick="startFocus()">Start 25min</button>
+  <p id="focusText"></p>
+</div>
+
+<!-- CLIPBOARD+ -->
+<div id="clipboardPlus" class="tool hidden">
+  <input id="clipPlusInput">
+  <button onclick="copyPlus()">Copy</button>
+  <button onclick="pastePlus()">Paste</button>
+</div>
+
+<!-- WORD COUNTER -->
+<div id="wordCount" class="tool hidden">
+  <textarea id="wordInput"></textarea>
+  <button onclick="countWords()">Count</button>
+  <p id="wordResult"></p>
+</div>
+
+<!-- JSON VIEWER -->
+<div id="json" class="tool hidden">
+  <textarea id="jsonInput"></textarea>
+  <button onclick="formatJSON()">Format</button>
+  <pre id="jsonOutput"></pre>
 </div>
 
 </section>
