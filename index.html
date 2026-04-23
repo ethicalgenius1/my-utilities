@@ -1,177 +1,592 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <meta charset="UTF-8">
-<title>My Web OS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Smart Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- DESKTOP -->
+<header>
+  <h1>⚡ My Smart Hub</h1>
+  <input type="text" id="search" placeholder="Search tools...">
+</header>
 
-<div id="desktop">
-  <div class="icon" onclick="openApp('vault')">🔐 Vault</div>
-  <div class="icon" onclick="openApp('code')">💻 Code</div>
-  <div class="icon" onclick="openApp('calc')">🧮 Calculator</div>
-  <div class="icon" onclick="openApp('word')">📝 WordCount</div>
-  <div class="icon" onclick="openApp('weather')">🌤 Weather</div>
-  <div class="icon" onclick="openApp('qr')">📱 QR Gen</div>
-  <div class="icon" onclick="openApp('dice')">🎲 Dice</div>
-  <div class="icon" onclick="openApp('coin')">💰 Coin</div>
-  <div class="icon" onclick="openApp('color')">🎨 Color</div>
-  <div class="icon" onclick="openApp('age')">⏱ Age</div>
-  <div class="icon" onclick="openApp('b64')">🔐 Base64</div>
+<main id="menu">
+  <button onclick="openTool('ai')">🤖 AI Chat</button>
+  <button onclick="openTool('notes')">📝 Notes</button>
+  <button onclick="openTool('todo')">✅ To-Do</button>
+  <button onclick="openTool('links')">🔗 Links</button>
+  <button onclick="openTool('games')">🎮 Game</button>
+  <button onclick="openTool('timer')">⏱️ Timer</button>
+  <button onclick="openTool('quotes')">💡 Quotes</button>
+  <button onclick="openTool('color')">🎨 Color</button>
+  <button onclick="openTool('clock')">🕒 Clock</button>
+  <button onclick="openTool('password')">🔐 Password</button>
+  <button onclick="openTool('calc')">🧮 Calculator</button>
+<button onclick="openTool('unit')">📏 Unit Converter</button>
+<button onclick="openTool('weather')">🌤️ Weather</button>
+<button onclick="openTool('stopwatch')">⏱️ Stopwatch</button>
+<button onclick="openTool('clipboard')">📋 Clipboard</button>
+<button onclick="openTool('qr')">🔳 QR Generator</button>
+<button onclick="openTool('ip')">🌐 IP Info</button>
+<button onclick="openTool('battery')">🔋 Battery</button>
+<button onclick="openTool('fullscreen')">🖥️ Fullscreen</button>
+<button onclick="openTool('random')">🎲 Random Generator</button>
+  <button onclick="openTool('googleSearch')">🌍 Google++</button>
+  <button onclick="openTool('calcPro')">🧮 Pro Calc</button>
+<button onclick="openTool('notesPlus')">📓 Notes+</button>
+<button onclick="openTool('draw')">✏️ Draw</button>
+<button onclick="openTool('files')">📁 File Viewer</button>
+<button onclick="openTool('textTools')">🔤 Text Tools</button>
+<button onclick="openTool('counter')">🔢 Counter</button>
+<button onclick="openTool('passwordCheck')">🛡️ Password Check</button>
+<button onclick="openTool('uuid')">🆔 UUID</button>
+<button onclick="openTool('markdown')">📝 Markdown</button>
+<button onclick="openTool('speech')">🎤 Speech</button>
+<button onclick="openTool('tts')">🔊 Text to Speech</button>
+<button onclick="openTool('vibrate')">📳 Vibrate</button>
+<button onclick="openTool('flashlight')">🔦 Flashlight</button>
+<button onclick="openTool('device')">📱 Device Info</button>
+<button onclick="openTool('orientation')">🧭 Orientation</button>
+<button onclick="openTool('storage')">💾 Storage</button>
+<button onclick="openTool('focus')">🎯 Focus Timer</button>
+<button onclick="openTool('clipboardPlus')">📋 Clipboard+</button>
+<button onclick="openTool('wordCount')">📊 Word Counter</button>
+<button onclick="openTool('json')">🧾 JSON Viewer</button>
+  <button onclick="openTool('calendar')">📅 Calendar</button>
+<button onclick="openTool('reminder')">⏰ Reminder</button>
+<button onclick="openTool('alarm')">⏰ Alarm</button>
+<button onclick="openTool('stopwatchPro')">⏱️ Stopwatch+</button>
+<button onclick="openTool('percentage')">📊 Percentage</button>
+<button onclick="openTool('tip')">💰 Tip Calculator</button>
+<button onclick="openTool('randomPicker')">🎯 Random Picker</button>
+<button onclick="openTool('dice')">🎲 Dice</button>
+<button onclick="openTool('coin')">🪙 Coin Flip</button>
+<button onclick="openTool('colorGen')">🌈 Color Generator</button>
+<button onclick="openTool('gradient')">🎨 Gradient</button>
+<button onclick="openTool('passwordGenPro')">🔐 Password+</button>
+<button onclick="openTool('timeConvert')">⏳ Time Converter</button>
+<button onclick="openTool('age')">🎂 Age Calculator</button>
+<button onclick="openTool('speedTest')">🚀 Speed Test</button>
+<button onclick="openTool('qrScan')">📷 QR Scanner</button>
+<button onclick="openTool('imageInfo')">🖼️ Image Info</button>
+<button onclick="openTool('notepadPro')">📝 Notepad Pro</button>
+<button onclick="openTool('listMaker')">📋 List Maker</button>
+<button onclick="openTool('decision')">🤔 Decision Maker</button>
+<button onclick="openTool('unitPlus')">📏 Unit+</button>
+<button onclick="openTool('countdown')">⏳ Countdown</button>
+<button onclick="openTool('textReverse')">🔁 Reverse Text</button>
+<button onclick="openTool('caseConvert')">🔤 Case Convert</button>
+<button onclick="openTool('passwordList')">🔑 Password List</button>
+<button onclick="openTool('chatLive')">💬 Live Chat</button>
+<button onclick="openTool('musicRoom')">🎵 Music Room</button>
+<button onclick="openTool('wheel')">🎡 Spin Wheel</button>
+  <button onclick="openTool('base64enc')">🔐 Base64 Encode</button>
+<button onclick="openTool('base64dec')">🔓 Base64 Decode</button>
+  <button onclick="openTool('vault')">🔑 Vault</button>
+<button onclick="openTool('session')">💾 Session Saver</button>
+<button onclick="openTool('multiTimer')">⏱️ Multi Timer</button>
+<button onclick="openTool('command')">⚡ Command</button>
+<button onclick="openTool('devEval')">💻 Code Runner</button>
+</main>
+
+<section id="tools">
+
+<div id="ai" class="tool hidden">
+  <h2>AI Chat</h2>
+  <div id="chatBox"></div>
+  <input id="chatInput">
+  <button onclick="sendMessage()">Send</button>
 </div>
 
-<!-- WINDOWS -->
-
-<div id="vault" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
-    Vault
-    <div>
-      <button onclick="minimizeApp('vault')">-</button>
-      <button onclick="closeApp('vault')">X</button>
-    </div>
-  </div>
-  <div class="content">
-    <textarea id="vaultData"></textarea>
-    <button onclick="saveVault()">Save</button>
-    <button onclick="loadVault()">Load</button>
-  </div>
+<div id="notes" class="tool hidden">
+  <textarea id="notesArea"></textarea>
+  <button onclick="saveNotes()">Save</button>
 </div>
 
-<div id="code" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
-    Code
-    <div>
-      <button onclick="minimizeApp('code')">-</button>
-      <button onclick="closeApp('code')">X</button>
-    </div>
-  </div>
-  <div class="content">
-    <textarea id="codeInput"></textarea>
-    <button onclick="runCode()">Run</button>
-    <pre id="codeOutput"></pre>
-  </div>
+<div id="todo" class="tool hidden">
+  <input id="todoInput">
+  <button onclick="addTodo()">Add</button>
+  <ul id="todoList"></ul>
 </div>
 
-<div id="calc" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Calculator
-    <div><button onclick="minimizeApp('calc')">-</button><button onclick="closeApp('calc')">X</button></div>
-  </div>
-  <div class="content">
-    <input id="calcInput">
-    <button onclick="calculate()">=</button>
-    <div id="calcResult"></div>
-  </div>
+<div id="links" class="tool hidden">
+  <a href="https://youtube.com" target="_blank">YouTube</a><br>
+  <a href="https://google.com" target="_blank">Google</a><br>
+  <a href="https://chat.openai.com" target="_blank">ChatGPT</a><br>
+  <a href="https://github.com" target="_blank">GitHub</a><br>
+  <a href="https://facebook.com" target="_blank">Facebook</a><br>
+  <a href="https://reddit.com" target="_blank">Reddit</a><br>
+  <a href="https://twitter.com" target="_blank">Twitter</a><br>
+  <a href="https://syarif-web.github.io/messenger-app/" target="_blank">My App</a><br>
 </div>
 
-<div id="word" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Word Counter
-    <div><button onclick="minimizeApp('word')">-</button><button onclick="closeApp('word')">X</button></div>
-  </div>
-  <div class="content">
-    <textarea id="wordInput"></textarea>
-    <button onclick="countWords()">Count</button>
-    <div id="wordResult"></div>
-  </div>
+<div id="games" class="tool hidden">
+  <button onclick="clickGame()">CLICK FAST</button>
+  <p id="score"></p>
 </div>
 
-<div id="weather" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Weather
-    <div><button onclick="minimizeApp('weather')">-</button><button onclick="closeApp('weather')">X</button></div>
-  </div>
-  <div class="content">
-    <input id="cityInput" placeholder="City">
-    <button onclick="getWeather()">Get</button>
-    <div id="weatherResult"></div>
-  </div>
+<!-- NEW TOOLS -->
+
+<div id="timer" class="tool hidden">
+  <button onclick="startTimer()">Start 5s</button>
+  <p id="timerText"></p>
 </div>
 
-<div id="qr" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">QR
-    <div><button onclick="minimizeApp('qr')">-</button><button onclick="closeApp('qr')">X</button></div>
-  </div>
-  <div class="content">
-    <input id="qrInput">
-    <button onclick="genQR()">Generate</button>
-    <img id="qrImg">
-  </div>
+<div id="quotes" class="tool hidden">
+  <button onclick="newQuote()">New Quote</button>
+  <p id="quoteText"></p>
 </div>
 
-<div id="dice" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Dice
-    <div><button onclick="minimizeApp('dice')">-</button><button onclick="closeApp('dice')">X</button></div>
-  </div>
-  <div class="content">
-    <button onclick="rollDice()">Roll</button>
-    <div id="diceResult"></div>
-  </div>
+<div id="color" class="tool hidden">
+  <input type="color" onchange="changeColor(this.value)">
 </div>
 
-<div id="coin" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Coin
-    <div><button onclick="minimizeApp('coin')">-</button><button onclick="closeApp('coin')">X</button></div>
-  </div>
-  <div class="content">
-    <button onclick="flipCoin()">Flip</button>
-    <div id="coinResult"></div>
-  </div>
+<div id="clock" class="tool hidden">
+  <p id="clockText"></p>
 </div>
 
-<div id="color" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Color
-    <div><button onclick="minimizeApp('color')">-</button><button onclick="closeApp('color')">X</button></div>
-  </div>
-  <div class="content">
-    <button onclick="genColor()">Random</button>
-    <button onclick="genGradient()">Gradient</button>
-    <div id="colorText"></div>
-  </div>
+<div id="password" class="tool hidden">
+  <button onclick="genPass()">Generate</button>
+  <p id="passText"></p>
 </div>
 
-<div id="age" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Age
-    <div><button onclick="minimizeApp('age')">-</button><button onclick="closeApp('age')">X</button></div>
-  </div>
-  <div class="content">
-    <input type="date" id="birth">
-    <button onclick="calcAge()">Calculate</button>
-    <div id="ageResult"></div>
-  </div>
+  <!-- CALCULATOR -->
+<div id="calc" class="tool hidden">
+  <input id="calcInput" placeholder="2+2">
+  <button onclick="calculate()">=</button>
+  <p id="calcResult"></p>
 </div>
 
-<div id="b64" class="window">
-  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Base64
-    <div><button onclick="minimizeApp('b64')">-</button><button onclick="closeApp('b64')">X</button></div>
-  </div>
-  <div class="content">
-    <input id="b64Input">
-    <button onclick="encodeB64()">Encode</button>
-    <div id="b64Result"></div>
-    <input id="b64DecodeInput">
-    <button onclick="decodeB64()">Decode</button>
-    <div id="b64DecodeResult"></div>
-  </div>
+<!-- UNIT CONVERTER -->
+<div id="unit" class="tool hidden">
+  <input id="kmInput" placeholder="KM">
+  <button onclick="convertKM()">To Miles</button>
+  <p id="unitResult"></p>
 </div>
 
-<!-- TASKBAR -->
-
-<div id="taskbar">
-  <button id="startBtn" onclick="toggleStart()">Start</button>
-  <div id="taskApps"></div>
-  <div id="clock"></div>
+<!-- WEATHER (API) -->
+<div id="weather" class="tool hidden">
+  <input id="cityInput" placeholder="City">
+  <button onclick="getWeather()">Get Weather</button>
+  <p id="weatherResult"></p>
 </div>
 
-<div id="startMenu">
-  <div class="startItem" onclick="openApp('vault')">Vault</div>
-  <div class="startItem" onclick="openApp('code')">Code</div>
-  <div class="startItem" onclick="openApp('calc')">Calculator</div>
+<!-- STOPWATCH -->
+<div id="stopwatch" class="tool hidden">
+  <button onclick="startSW()">Start</button>
+  <button onclick="stopSW()">Stop</button>
+  <p id="swText">0</p>
 </div>
+
+<!-- CLIPBOARD -->
+<div id="clipboard" class="tool hidden">
+  <input id="clipInput">
+  <button onclick="copyText()">Copy</button>
+</div>
+
+<!-- QR GENERATOR -->
+<div id="qr" class="tool hidden">
+  <input id="qrInput">
+  <button onclick="genQR()">Generate</button>
+  <img id="qrImg">
+</div>
+
+<!-- IP INFO -->
+<div id="ip" class="tool hidden">
+  <button onclick="getIP()">Get My IP</button>
+  <p id="ipText"></p>
+</div>
+
+<!-- BATTERY -->
+<div id="battery" class="tool hidden">
+  <button onclick="getBattery()">Check Battery</button>
+  <p id="batteryText"></p>
+</div>
+
+<!-- FULLSCREEN -->
+<div id="fullscreen" class="tool hidden">
+  <button onclick="goFull()">Enter Fullscreen</button>
+</div>
+
+<!-- RANDOM -->
+<div id="random" class="tool hidden">
+  <button onclick="randomNum()">Random 1-100</button>
+  <p id="randomText"></p>
+</div>
+
+  <div id="googleSearch" class="tool hidden">
+  <script async src="https://cse.google.com/cse.js?cx=e0286dc3be5fc40a6">
+</script>
+<div class="gcse-search"></div>
+</div>
+
+  <!-- PRO CALC -->
+<div id="calcPro" class="tool hidden">
+  <input id="calcProInput" placeholder="2+2, Math.sqrt(9)">
+  <button onclick="calcPro()">=</button>
+  <p id="calcProResult"></p>
+</div>
+
+<!-- NOTES+ -->
+<div id="notesPlus" class="tool hidden">
+  <textarea id="notesPlusArea"></textarea>
+  <button onclick="saveNotesPlus()">Save</button>
+</div>
+
+<!-- DRAW -->
+<div id="draw" class="tool hidden">
+  <canvas id="canvas" width="300" height="300" style="border:1px solid white;"></canvas>
+</div>
+
+<!-- FILE VIEWER -->
+<div id="files" class="tool hidden">
+  <input type="file" onchange="readFile(this)">
+  <pre id="fileContent"></pre>
+</div>
+
+<!-- TEXT TOOLS -->
+<div id="textTools" class="tool hidden">
+  <input id="textInput">
+  <button onclick="toUpper()">UPPER</button>
+  <button onclick="toLower()">lower</button>
+</div>
+
+<!-- COUNTER -->
+<div id="counter" class="tool hidden">
+  <button onclick="countUp()">+</button>
+  <p id="countText">0</p>
+</div>
+
+<!-- PASSWORD CHECK -->
+<div id="passwordCheck" class="tool hidden">
+  <input id="passCheck">
+  <button onclick="checkPass()">Check</button>
+  <p id="passStrength"></p>
+</div>
+
+<!-- UUID -->
+<div id="uuid" class="tool hidden">
+  <button onclick="genUUID()">Generate</button>
+  <p id="uuidText"></p>
+</div>
+
+<!-- MARKDOWN -->
+<div id="markdown" class="tool hidden">
+  <textarea id="mdInput"></textarea>
+  <button onclick="renderMD()">Render</button>
+  <div id="mdOutput"></div>
+</div>
+
+<!-- SPEECH -->
+<div id="speech" class="tool hidden">
+  <button onclick="startSpeech()">Start</button>
+  <p id="speechText"></p>
+</div>
+
+<!-- TTS -->
+<div id="tts" class="tool hidden">
+  <input id="ttsInput">
+  <button onclick="speak()">Speak</button>
+</div>
+
+<!-- VIBRATE -->
+<div id="vibrate" class="tool hidden">
+  <button onclick="vibrate()">Vibrate</button>
+</div>
+
+<!-- FLASHLIGHT -->
+<div id="flashlight" class="tool hidden">
+  <button onclick="flash()">Flash</button>
+</div>
+
+<!-- DEVICE -->
+<div id="device" class="tool hidden">
+  <button onclick="deviceInfo()">Show</button>
+  <p id="deviceText"></p>
+</div>
+
+<!-- ORIENTATION -->
+<div id="orientation" class="tool hidden">
+  <button onclick="getOrientation()">Check</button>
+  <p id="oriText"></p>
+</div>
+
+<!-- STORAGE -->
+<div id="storage" class="tool hidden">
+  <button onclick="storageInfo()">Check</button>
+  <p id="storageText"></p>
+</div>
+
+<!-- FOCUS TIMER -->
+<div id="focus" class="tool hidden">
+  <button onclick="startFocus()">Start 25min</button>
+  <p id="focusText"></p>
+</div>
+
+<!-- CLIPBOARD+ -->
+<div id="clipboardPlus" class="tool hidden">
+  <input id="clipPlusInput">
+  <button onclick="copyPlus()">Copy</button>
+  <button onclick="pastePlus()">Paste</button>
+</div>
+
+<!-- WORD COUNTER -->
+<div id="wordCount" class="tool hidden">
+  <textarea id="wordInput"></textarea>
+  <button onclick="countWords()">Count</button>
+  <p id="wordResult"></p>
+</div>
+
+<!-- JSON VIEWER -->
+<div id="json" class="tool hidden">
+  <textarea id="jsonInput"></textarea>
+  <button onclick="formatJSON()">Format</button>
+  <pre id="jsonOutput"></pre>
+</div>
+
+  <!-- CALENDAR -->
+<div id="calendar" class="tool hidden">
+  <input type="date">
+</div>
+
+<!-- REMINDER -->
+<div id="reminder" class="tool hidden">
+  <input id="reminderText">
+  <button onclick="setReminder()">Set 5s</button>
+</div>
+
+<!-- ALARM -->
+<div id="alarm" class="tool hidden">
+  <input type="time" id="alarmTime">
+  <button onclick="setAlarm()">Set</button>
+  <p id="alarmStatus"></p>
+</div>
+
+<!-- STOPWATCH -->
+<div id="stopwatchPro" class="tool hidden">
+  <button onclick="startSW2()">Start</button>
+  <button onclick="stopSW2()">Stop</button>
+  <button onclick="resetSW2()">Reset</button>
+  <p id="sw2Text">0</p>
+</div>
+
+<!-- PERCENT -->
+<div id="percentage" class="tool hidden">
+  <input id="percA">
+  <input id="percB">
+  <button onclick="calcPerc()">Calc</button>
+  <p id="percResult"></p>
+</div>
+
+<!-- TIP -->
+<div id="tip" class="tool hidden">
+  <input id="bill">
+  <input id="tipPercent">
+  <button onclick="calcTip()">Calc</button>
+  <p id="tipResult"></p>
+</div>
+
+<!-- RANDOM PICKER -->
+<div id="randomPicker" class="tool hidden">
+  <textarea id="pickerInput"></textarea>
+  <button onclick="pickRandom()">Pick</button>
+  <p id="pickerResult"></p>
+</div>
+
+<!-- DICE -->
+<div id="dice" class="tool hidden">
+  <button onclick="rollDice()">Roll</button>
+  <p id="diceResult"></p>
+</div>
+
+<!-- COIN -->
+<div id="coin" class="tool hidden">
+  <button onclick="flipCoin()">Flip</button>
+  <p id="coinResult"></p>
+</div>
+
+<!-- COLOR -->
+<div id="colorGen" class="tool hidden">
+  <button onclick="genColor()">Generate</button>
+  <p id="colorText"></p>
+</div>
+
+<!-- GRADIENT -->
+<div id="gradient" class="tool hidden">
+  <button onclick="genGradient()">Generate</button>
+</div>
+
+<!-- PASSWORD -->
+<div id="passwordGenPro" class="tool hidden">
+  <button onclick="genPassPro()">Generate</button>
+  <p id="passProText"></p>
+</div>
+
+<!-- TIME -->
+<div id="timeConvert" class="tool hidden">
+  <input id="minutesInput">
+  <button onclick="convertTime()">Convert</button>
+  <p id="timeResult"></p>
+</div>
+
+<!-- AGE -->
+<div id="age" class="tool hidden">
+  <input type="date" id="birth">
+  <button onclick="calcAge()">Calc</button>
+  <p id="ageResult"></p>
+</div>
+
+<!-- SPEED -->
+<div id="speedTest" class="tool hidden">
+  <button onclick="testSpeed()">Test</button>
+  <p id="speedResult"></p>
+</div>
+
+<!-- QR -->
+<div id="qrScan" class="tool hidden">
+  <input type="file" onchange="scanQR(this)">
+  <p id="qrScanText"></p>
+</div>
+
+<!-- IMAGE -->
+<div id="imageInfo" class="tool hidden">
+  <input type="file" onchange="imgInfo(this)">
+  <p id="imgText"></p>
+</div>
+
+<!-- NOTEPAD PRO -->
+<div id="notepadPro" class="tool hidden">
+  <textarea id="npText"></textarea>
+  <button onclick="saveNP()">Save</button>
+</div>
+
+<!-- LIST MAKER -->
+<div id="listMaker" class="tool hidden">
+  <input id="listInput">
+  <button onclick="addList()">Add</button>
+  <ul id="listUl"></ul>
+</div>
+
+<!-- DECISION -->
+<div id="decision" class="tool hidden">
+  <textarea id="decInput"></textarea>
+  <button onclick="decide()">Decide</button>
+  <p id="decResult"></p>
+</div>
+
+<!-- UNIT+ -->
+<div id="unitPlus" class="tool hidden">
+  <input id="cmInput">
+  <button onclick="cmToIn()">cm → inches</button>
+  <p id="unitPlusResult"></p>
+</div>
+
+<!-- COUNTDOWN -->
+<div id="countdown" class="tool hidden">
+  <input id="cdInput" placeholder="seconds">
+  <button onclick="startCD()">Start</button>
+  <p id="cdText"></p>
+</div>
+
+<!-- REVERSE TEXT -->
+<div id="textReverse" class="tool hidden">
+  <input id="revInput">
+  <button onclick="reverseText()">Reverse</button>
+  <p id="revResult"></p>
+</div>
+
+<!-- CASE CONVERT -->
+<div id="caseConvert" class="tool hidden">
+  <input id="caseInput">
+  <button onclick="upperCase()">UPPER</button>
+  <button onclick="lowerCase()">lower</button>
+</div>
+
+<!-- PASSWORD LIST -->
+<div id="passwordList" class="tool hidden">
+  <button onclick="genList()">Generate 5</button>
+  <p id="passListText"></p>
+</div>
+
+  <div id="chatLive" class="tool hidden">
+  <h2>Live Chat</h2>
+  <div id="liveChatBox" style="height:200px; overflow:auto; background:#000;"></div>
+  <input id="liveInput">
+  <button onclick="sendLive()">Send</button>
+</div>
+
+<div id="musicRoom" class="tool hidden">
+  <h2>Music Room</h2>
+  <input id="ytLink" placeholder="Paste YouTube URL">
+  <button onclick="loadYT()">Play</button>
+  <iframe id="ytPlayer" width="100%" height="200"></iframe>
+</div>
+
+  <div id="wheel" class="tool hidden">
+  <h2>Spin Wheel</h2>
+  <iframe 
+    src="https://wheelofnames.com/" 
+    width="100%" 
+    height="400"
+    style="border:none;">
+  </iframe>
+</div>
+
+<div id="base64enc" class="tool hidden">
+  <h2>Base64 Encode</h2>
+  <textarea id="b64Input"></textarea>
+  <button onclick="encodeB64()">Encode</button>
+  <p id="b64Result"></p>
+</div>
+
+<div id="base64dec" class="tool hidden">
+  <h2>Base64 Decode</h2>
+  <textarea id="b64DecodeInput"></textarea>
+  <button onclick="decodeB64()">Decode</button>
+  <p id="b64DecodeResult"></p>
+</div>
+
+  <div id="vault" class="tool">
+  <h2>🔐 Vault</h2>
+  <input type="password" id="vaultPass" placeholder="Enter password">
+  <textarea id="vaultData" placeholder="Secret notes..."></textarea>
+  <button onclick="saveVault()">Save</button>
+  <button onclick="loadVault()">Load</button>
+</div>
+
+  <div id="session" class="tool">
+  <h2>💾 Session Saver</h2>
+  <button onclick="saveSession()">Save Session</button>
+  <button onclick="loadSession()">Load Session</button>
+</div>
+
+  <div id="multiTimer" class="tool">
+  <h2>⏱️ Multi Timer</h2>
+  <button onclick="addTimer()">+ Add Timer</button>
+  <div id="timers"></div>
+</div>
+
+  <div id="command" class="tool">
+  <h2>⚡ Command</h2>
+  <input type="text" id="cmdInput" placeholder="Type tool name...">
+</div>
+
+  <div id="devEval" class="tool">
+  <h2>💻 Code Runner</h2>
+  <textarea id="codeInput" placeholder="JS code..."></textarea>
+  <button onclick="runCode()">Run</button>
+  <pre id="codeOutput"></pre>
+</div>
+
+  
+  
+</section>
 
 <script src="script.js"></script>
-
 </body>
 </html>
