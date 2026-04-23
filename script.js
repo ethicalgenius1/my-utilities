@@ -107,3 +107,36 @@ function runCode(){
 try{codeOutput.innerText=eval(codeInput.value);}
 catch(e){codeOutput.innerText=e;}
 }
+
+// ===== DRAGGABLE DESKTOP ICONS =====
+
+const icons = document.querySelectorAll(".icon");
+
+icons.forEach((icon, index) => {
+
+  // initial position (grid-like)
+  icon.style.left = "10px";
+  icon.style.top = (10 + index * 90) + "px";
+
+  let offsetX = 0, offsetY = 0, isDragging = false;
+
+  icon.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - icon.offsetLeft;
+    offsetY = e.clientY - icon.offsetTop;
+    icon.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    icon.style.left = (e.clientX - offsetX) + "px";
+    icon.style.top = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    icon.style.cursor = "grab";
+  });
+
+});
