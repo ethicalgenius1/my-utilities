@@ -13,9 +13,13 @@ color:white;
 }
 
 .icon{
-width:80px;
-margin:10px;
-cursor:pointer;
+  width: 110px;          /* bigger space */
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;    /* center text */
+  white-space: nowrap;   /* prevent line breaks */
+  overflow: hidden;
+  text-overflow: ellipsis; /* adds ... if too long */
 }
 
 .window{
