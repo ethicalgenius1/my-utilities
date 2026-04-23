@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My OS</title>
+<title>My Web OS</title>
 
 <style>
 body {
@@ -25,7 +25,6 @@ body {
   width: 80px;
   margin: 10px;
   cursor: pointer;
-  text-align: center;
 }
 
 /* Window */
@@ -63,10 +62,55 @@ body {
   width: 100%;
   height: 40px;
   background: #111;
-  color: white;
   display: flex;
   align-items: center;
+}
+
+#startBtn {
+  width: 80px;
+  background: #222;
+  color: white;
+  border: none;
+  height: 100%;
+  cursor: pointer;
+}
+
+#taskApps {
+  display: flex;
+  flex: 1;
+}
+
+.taskApp {
+  background: #333;
+  color: white;
+  margin: 2px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+#clock {
+  color: white;
   padding: 0 10px;
+}
+
+/* Start Menu */
+#startMenu {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 200px;
+  background: #222;
+  color: white;
+  display: none;
+}
+
+.startItem {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.startItem:hover {
+  background: #444;
 }
 </style>
 
@@ -80,11 +124,14 @@ body {
   <div class="icon" onclick="openApp('code')">💻 Code</div>
 </div>
 
-<!-- VAULT -->
+<!-- Windows -->
 <div id="vault" class="window">
   <div class="titlebar" onmousedown="dragStart(event, this.parentElement)">
     Vault
-    <button onclick="closeApp('vault')">X</button>
+    <div>
+      <button onclick="minimizeApp('vault')">-</button>
+      <button onclick="closeApp('vault')">X</button>
+    </div>
   </div>
   <div class="content">
     <textarea id="vaultData" style="width:100%;height:100px;"></textarea><br>
@@ -93,11 +140,13 @@ body {
   </div>
 </div>
 
-<!-- CODE RUNNER -->
 <div id="code" class="window">
   <div class="titlebar" onmousedown="dragStart(event, this.parentElement)">
     Code Runner
-    <button onclick="closeApp('code')">X</button>
+    <div>
+      <button onclick="minimizeApp('code')">-</button>
+      <button onclick="closeApp('code')">X</button>
+    </div>
   </div>
   <div class="content">
     <textarea id="codeInput" style="width:100%;height:100px;"></textarea><br>
@@ -107,25 +156,65 @@ body {
 </div>
 
 <!-- Taskbar -->
-<div id="taskbar">MyOS</div>
+<div id="taskbar">
+  <button id="startBtn" onclick="toggleStart()">Start</button>
+  <div id="taskApps"></div>
+  <div id="clock"></div>
+</div>
+
+<!-- Start Menu -->
+<div id="startMenu">
+  <div class="startItem" onclick="openApp('vault')">🔐 Vault</div>
+  <div class="startItem" onclick="openApp('code')">💻 Code Runner</div>
+</div>
 
 <script>
 
-// Open / Close
+// Open App
 function openApp(id) {
   let el = document.getElementById(id);
   el.style.display = "block";
   el.style.zIndex = Date.now();
+
+  addTask(id);
 }
 
+// Close
 function closeApp(id) {
+  document.getElementById(id).style.display = "none";
+  removeTask(id);
+}
+
+// Minimize
+function minimizeApp(id) {
   document.getElementById(id).style.display = "none";
 }
 
+// Taskbar
+function addTask(id) {
+  if (document.getElementById("task_" + id)) return;
+
+  let btn = document.createElement("div");
+  btn.className = "taskApp";
+  btn.id = "task_" + id;
+  btn.innerText = id;
+
+  btn.onclick = () => {
+    let win = document.getElementById(id);
+    win.style.display = "block";
+    win.style.zIndex = Date.now();
+  };
+
+  document.getElementById("taskApps").appendChild(btn);
+}
+
+function removeTask(id) {
+  let el = document.getElementById("task_" + id);
+  if (el) el.remove();
+}
+
 // Dragging
-let current = null;
-let offsetX = 0;
-let offsetY = 0;
+let current = null, offsetX = 0, offsetY = 0;
 
 function dragStart(e, el) {
   current = el;
@@ -146,11 +235,24 @@ function stopDrag() {
   document.onmousemove = null;
 }
 
+// Start Menu
+function toggleStart() {
+  let menu = document.getElementById("startMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Clock
+setInterval(() => {
+  let now = new Date();
+  document.getElementById("clock").innerText =
+    now.getHours().toString().padStart(2,"0") + ":" +
+    now.getMinutes().toString().padStart(2,"0");
+}, 1000);
+
 // Vault
 function saveVault() {
   localStorage.setItem("vault", btoa(document.getElementById("vaultData").value));
 }
-
 function loadVault() {
   let data = localStorage.getItem("vault");
   if (data) document.getElementById("vaultData").value = atob(data);
