@@ -558,6 +558,32 @@
   <button onclick="saveVault()">Save</button>
   <button onclick="loadVault()">Load</button>
 </div>
+
+  <div id="session" class="tool">
+  <h2>💾 Session Saver</h2>
+  <button onclick="saveSession()">Save Session</button>
+  <button onclick="loadSession()">Load Session</button>
+</div>
+
+  <div id="multiTimer" class="tool">
+  <h2>⏱️ Multi Timer</h2>
+  <button onclick="addTimer()">+ Add Timer</button>
+  <div id="timers"></div>
+</div>
+
+  <div id="command" class="tool">
+  <h2>⚡ Command</h2>
+  <input type="text" id="cmdInput" placeholder="Type tool name...">
+</div>
+
+  <div id="devEval" class="tool">
+  <h2>💻 Code Runner</h2>
+  <textarea id="codeInput" placeholder="JS code..."></textarea>
+  <button onclick="runCode()">Run</button>
+  <pre id="codeOutput"></pre>
+</div>
+
+  
   
 </section>
 
