@@ -3,273 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <title>My Web OS</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: sans-serif;
-  overflow: hidden;
-}
-
-/* Desktop */
-#desktop {
-  width: 100vw;
-  height: 100vh;
-  background: #1e1e1e;
-  color: white;
-  padding: 10px;
-}
-
-/* Icons */
-.icon {
-  width: 80px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-/* Window */
-.window {
-  position: absolute;
-  width: 400px;
-  background: white;
-  border: 1px solid #aaa;
-  display: none;
-  top: 100px;
-  left: 100px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-/* Titlebar */
-.titlebar {
-  background: #0078d7;
-  color: white;
-  padding: 5px;
-  cursor: move;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Content */
-.content {
-  padding: 10px;
-  color: black;
-}
-
-/* Taskbar */
-#taskbar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  background: #111;
-  display: flex;
-  align-items: center;
-}
-
-#startBtn {
-  width: 80px;
-  background: #222;
-  color: white;
-  border: none;
-  height: 100%;
-  cursor: pointer;
-}
-
-#taskApps {
-  display: flex;
-  flex: 1;
-}
-
-.taskApp {
-  background: #333;
-  color: white;
-  margin: 2px;
-  padding: 5px;
-  cursor: pointer;
-}
-
-#clock {
-  color: white;
-  padding: 0 10px;
-}
-
-/* Start Menu */
-#startMenu {
-  position: fixed;
-  bottom: 40px;
-  left: 0;
-  width: 200px;
-  background: #222;
-  color: white;
-  display: none;
-}
-
-.startItem {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.startItem:hover {
-  background: #444;
-}
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- Desktop -->
 <div id="desktop">
-  <div class="icon" onclick="openApp('vault')">🔐 Vault</div>
-  <div class="icon" onclick="openApp('code')">💻 Code</div>
+  <div class="icon" onclick="openApp('notes')">📝 Notes</div>
+  <div class="icon" onclick="openApp('todo')">✅ To-Do</div>
+  <div class="icon" onclick="openApp('calc')">🧮 Calc</div>
+  <div class="icon" onclick="openApp('weather')">🌤️ Weather</div>
+  <div class="icon" onclick="openApp('base64')">🔐 Base64</div>
+  <div class="icon" onclick="openApp('ai')">🧠 AI</div>
 </div>
 
-<!-- Windows -->
-<div id="vault" class="window">
-  <div class="titlebar" onmousedown="dragStart(event, this.parentElement)">
-    Vault
-    <div>
-      <button onclick="minimizeApp('vault')">-</button>
-      <button onclick="closeApp('vault')">X</button>
-    </div>
+<!-- WINDOWS -->
+
+<div id="notes" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Notes <button onclick="closeApp('notes')">X</button>
   </div>
   <div class="content">
-    <textarea id="vaultData" style="width:100%;height:100px;"></textarea><br>
-    <button onclick="saveVault()">Save</button>
-    <button onclick="loadVault()">Load</button>
+    <textarea id="notesArea"></textarea>
+    <button onclick="saveNotes()">Save</button>
   </div>
 </div>
 
-<div id="code" class="window">
-  <div class="titlebar" onmousedown="dragStart(event, this.parentElement)">
-    Code Runner
-    <div>
-      <button onclick="minimizeApp('code')">-</button>
-      <button onclick="closeApp('code')">X</button>
-    </div>
+<div id="todo" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    To-Do <button onclick="closeApp('todo')">X</button>
   </div>
   <div class="content">
-    <textarea id="codeInput" style="width:100%;height:100px;"></textarea><br>
-    <button onclick="runCode()">Run</button>
-    <pre id="codeOutput"></pre>
+    <input id="todoInput">
+    <button onclick="addTodo()">Add</button>
+    <ul id="todoList"></ul>
   </div>
 </div>
 
-<!-- Taskbar -->
-<div id="taskbar">
-  <button id="startBtn" onclick="toggleStart()">Start</button>
-  <div id="taskApps"></div>
-  <div id="clock"></div>
+<div id="calc" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Calculator <button onclick="closeApp('calc')">X</button>
+  </div>
+  <div class="content">
+    <input id="calcInput">
+    <button onclick="calculate()">=</button>
+    <div id="calcResult"></div>
+  </div>
 </div>
 
-<!-- Start Menu -->
-<div id="startMenu">
-  <div class="startItem" onclick="openApp('vault')">🔐 Vault</div>
-  <div class="startItem" onclick="openApp('code')">💻 Code Runner</div>
+<div id="weather" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Weather <button onclick="closeApp('weather')">X</button>
+  </div>
+  <div class="content">
+    <input id="cityInput">
+    <button onclick="getWeather()">Check</button>
+    <div id="weatherResult"></div>
+  </div>
 </div>
 
-<script>
+<div id="base64" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Base64 <button onclick="closeApp('base64')">X</button>
+  </div>
+  <div class="content">
+    <input id="b64Input">
+    <button onclick="encodeB64()">Encode</button>
+    <div id="b64Result"></div>
 
-// Open App
-function openApp(id) {
-  let el = document.getElementById(id);
-  el.style.display = "block";
-  el.style.zIndex = Date.now();
+    <input id="b64DecodeInput">
+    <button onclick="decodeB64()">Decode</button>
+    <div id="b64DecodeResult"></div>
+  </div>
+</div>
 
-  addTask(id);
-}
+<div id="ai" class="window">
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    AI <button onclick="closeApp('ai')">X</button>
+  </div>
+  <div class="content">
+    <div id="chatBox"></div>
+    <input id="chatInput">
+    <button onclick="sendAI()">Send</button>
+  </div>
+</div>
 
-// Close
-function closeApp(id) {
-  document.getElementById(id).style.display = "none";
-  removeTask(id);
-}
-
-// Minimize
-function minimizeApp(id) {
-  document.getElementById(id).style.display = "none";
-}
-
-// Taskbar
-function addTask(id) {
-  if (document.getElementById("task_" + id)) return;
-
-  let btn = document.createElement("div");
-  btn.className = "taskApp";
-  btn.id = "task_" + id;
-  btn.innerText = id;
-
-  btn.onclick = () => {
-    let win = document.getElementById(id);
-    win.style.display = "block";
-    win.style.zIndex = Date.now();
-  };
-
-  document.getElementById("taskApps").appendChild(btn);
-}
-
-function removeTask(id) {
-  let el = document.getElementById("task_" + id);
-  if (el) el.remove();
-}
-
-// Dragging
-let current = null, offsetX = 0, offsetY = 0;
-
-function dragStart(e, el) {
-  current = el;
-  offsetX = e.clientX - el.offsetLeft;
-  offsetY = e.clientY - el.offsetTop;
-  document.onmousemove = drag;
-  document.onmouseup = stopDrag;
-}
-
-function drag(e) {
-  if (!current) return;
-  current.style.left = (e.clientX - offsetX) + "px";
-  current.style.top = (e.clientY - offsetY) + "px";
-}
-
-function stopDrag() {
-  current = null;
-  document.onmousemove = null;
-}
-
-// Start Menu
-function toggleStart() {
-  let menu = document.getElementById("startMenu");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-// Clock
-setInterval(() => {
-  let now = new Date();
-  document.getElementById("clock").innerText =
-    now.getHours().toString().padStart(2,"0") + ":" +
-    now.getMinutes().toString().padStart(2,"0");
-}, 1000);
-
-// Vault
-function saveVault() {
-  localStorage.setItem("vault", btoa(document.getElementById("vaultData").value));
-}
-function loadVault() {
-  let data = localStorage.getItem("vault");
-  if (data) document.getElementById("vaultData").value = atob(data);
-}
-
-// Code Runner
-function runCode() {
-  let code = document.getElementById("codeInput").value;
-  try {
-    let result = eval(code);
-    document.getElementById("codeOutput").innerText = result;
-  } catch (e) {
-    document.getElementById("codeOutput").innerText = e;
-  }
-}
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
