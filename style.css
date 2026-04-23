@@ -15,10 +15,15 @@ color:white;
 .icon{
   width: 110px;
   margin: 10px;
-  cursor: pointer;
+  padding: 8px;
   text-align: center;
+  cursor: pointer;
+
   line-height: 1.2;
   word-wrap: break-word;
+
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
 .window{
@@ -92,4 +97,22 @@ width:100%;
 }
 button{
 margin-top:5px;
+}
+
+/* hover effect */
+.icon:hover{
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* click (active) */
+.icon:active{
+  background: rgba(0,120,215,0.4);
+  border: 1px solid rgba(0,120,215,0.8);
+}
+
+/* optional: selected state (if you add JS later) */
+.icon.selected{
+  background: rgba(0,120,215,0.3);
+  border: 1px solid rgba(0,120,215,0.8);
 }
