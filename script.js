@@ -596,3 +596,39 @@ function runCode() {
     document.getElementById("codeOutput").innerText = e;
   }
 }
+
+function createApp(id, title, contentHTML) {
+  // create window
+  let win = document.createElement("div");
+  win.className = "window";
+  win.id = id;
+
+  win.innerHTML = `
+    <div class="titlebar" onmousedown="dragStart(event, this.parentElement)">
+      ${title}
+      <div>
+        <button onclick="minimizeApp('${id}')">-</button>
+        <button onclick="closeApp('${id}')">X</button>
+      </div>
+    </div>
+    <div class="content">${contentHTML}</div>
+  `;
+
+  document.body.appendChild(win);
+
+  // create desktop icon
+  let icon = document.createElement("div");
+  icon.className = "icon";
+  icon.innerText = title;
+  icon.onclick = () => openApp(id);
+
+  document.getElementById("desktop").appendChild(icon);
+
+  // add to start menu
+  let item = document.createElement("div");
+  item.className = "startItem";
+  item.innerText = title;
+  item.onclick = () => openApp(id);
+
+  document.getElementById("startMenu").appendChild(item);
+}
