@@ -13,13 +13,12 @@ color:white;
 }
 
 .icon{
-  width: 110px;          /* bigger space */
+  width: 110px;
   margin: 10px;
-  cursor: pointer;
-  text-align: center;    /* center text */
-  white-space: nowrap;   /* prevent line breaks */
-  overflow: hidden;
-  text-overflow: ellipsis; /* adds ... if too long */
+  cursor: grab;
+  text-align: center;
+  position: absolute;   /* REQUIRED for dragging */
+  user-select: none;
 }
 
 .window{
