@@ -4,29 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>My Web OS</title>
-
-<style>
-body { margin:0; font-family:sans-serif; overflow:hidden; }
-#desktop { width:100vw; height:100vh; background:#1e1e1e; color:white; padding:10px; display:flex; flex-wrap:wrap;}
-.icon { width:80px; margin:10px; cursor:pointer; text-align:center;}
-.window { position:absolute; width:400px; background:white; border:1px solid #aaa; display:none; top:100px; left:100px; box-shadow:0 5px 15px rgba(0,0,0,0.5);}
-.titlebar { background:#0078d7; color:white; padding:5px; cursor:move; display:flex; justify-content:space-between;}
-.content { padding:10px; color:black;}
-#taskbar { position:fixed; bottom:0; width:100%; height:40px; background:#111; display:flex; align-items:center;}
-#startBtn { width:80px; background:#222; color:white; border:none; height:100%; cursor:pointer;}
-#taskApps { display:flex; flex:1;}
-.taskApp { background:#333; color:white; margin:2px; padding:5px; cursor:pointer;}
-#clock { color:white; padding:0 10px;}
-#startMenu { position:fixed; bottom:40px; left:0; width:200px; background:#222; color:white; display:none;}
-.startItem { padding:10px; cursor:pointer;}
-.startItem:hover { background:#444;}
-textarea,input{width:100%;}
-button{margin-top:5px;}
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<!-- DESKTOP -->
 
 <div id="desktop">
   <div class="icon" onclick="openApp('vault')">🔐 Vault</div>
@@ -42,161 +25,153 @@ button{margin-top:5px;}
   <div class="icon" onclick="openApp('b64')">🔐 Base64</div>
 </div>
 
-<!-- VAULT -->
+<!-- WINDOWS -->
 
 <div id="vault" class="window">
-<div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Vault
-<div><button onclick="minimizeApp('vault')">-</button><button onclick="closeApp('vault')">X</button></div></div>
-<div class="content">
-<textarea id="vaultData"></textarea>
-<button onclick="saveVault()">Save</button>
-<button onclick="loadVault()">Load</button>
-</div></div>
-
-<!-- CODE -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Vault
+    <div>
+      <button onclick="minimizeApp('vault')">-</button>
+      <button onclick="closeApp('vault')">X</button>
+    </div>
+  </div>
+  <div class="content">
+    <textarea id="vaultData"></textarea>
+    <button onclick="saveVault()">Save</button>
+    <button onclick="loadVault()">Load</button>
+  </div>
+</div>
 
 <div id="code" class="window">
-<div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Code
-<div><button onclick="minimizeApp('code')">-</button><button onclick="closeApp('code')">X</button></div></div>
-<div class="content">
-<textarea id="codeInput"></textarea>
-<button onclick="runCode()">Run</button>
-<pre id="codeOutput"></pre>
-</div></div>
-
-<!-- CALCULATOR -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">
+    Code
+    <div>
+      <button onclick="minimizeApp('code')">-</button>
+      <button onclick="closeApp('code')">X</button>
+    </div>
+  </div>
+  <div class="content">
+    <textarea id="codeInput"></textarea>
+    <button onclick="runCode()">Run</button>
+    <pre id="codeOutput"></pre>
+  </div>
+</div>
 
 <div id="calc" class="window">
-<div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Calculator
-<div><button onclick="minimizeApp('calc')">-</button><button onclick="closeApp('calc')">X</button></div></div>
-<div class="content">
-<input id="calcInput">
-<button onclick="calculate()">=</button>
-<div id="calcResult"></div>
-</div></div>
-
-<!-- WORD -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Calculator
+    <div><button onclick="minimizeApp('calc')">-</button><button onclick="closeApp('calc')">X</button></div>
+  </div>
+  <div class="content">
+    <input id="calcInput">
+    <button onclick="calculate()">=</button>
+    <div id="calcResult"></div>
+  </div>
+</div>
 
 <div id="word" class="window">
-<div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Word Counter
-<div><button onclick="minimizeApp('word')">-</button><button onclick="closeApp('word')">X</button></div></div>
-<div class="content">
-<textarea id="wordInput"></textarea>
-<button onclick="countWords()">Count</button>
-<div id="wordResult"></div>
-</div></div>
-
-<!-- WEATHER -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Word Counter
+    <div><button onclick="minimizeApp('word')">-</button><button onclick="closeApp('word')">X</button></div>
+  </div>
+  <div class="content">
+    <textarea id="wordInput"></textarea>
+    <button onclick="countWords()">Count</button>
+    <div id="wordResult"></div>
+  </div>
+</div>
 
 <div id="weather" class="window">
-<div class="titlebar">Weather
-<div><button onclick="minimizeApp('weather')">-</button><button onclick="closeApp('weather')">X</button></div></div>
-<div class="content">
-<input id="cityInput" placeholder="City">
-<button onclick="getWeather()">Get</button>
-<div id="weatherResult"></div>
-</div></div>
-
-<!-- QR -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Weather
+    <div><button onclick="minimizeApp('weather')">-</button><button onclick="closeApp('weather')">X</button></div>
+  </div>
+  <div class="content">
+    <input id="cityInput" placeholder="City">
+    <button onclick="getWeather()">Get</button>
+    <div id="weatherResult"></div>
+  </div>
+</div>
 
 <div id="qr" class="window">
-<div class="titlebar">QR Generator
-<div><button onclick="minimizeApp('qr')">-</button><button onclick="closeApp('qr')">X</button></div></div>
-<div class="content">
-<input id="qrInput">
-<button onclick="genQR()">Generate</button>
-<img id="qrImg">
-</div></div>
-
-<!-- DICE -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">QR
+    <div><button onclick="minimizeApp('qr')">-</button><button onclick="closeApp('qr')">X</button></div>
+  </div>
+  <div class="content">
+    <input id="qrInput">
+    <button onclick="genQR()">Generate</button>
+    <img id="qrImg">
+  </div>
+</div>
 
 <div id="dice" class="window">
-<div class="titlebar">Dice
-<div><button onclick="minimizeApp('dice')">-</button><button onclick="closeApp('dice')">X</button></div></div>
-<div class="content">
-<button onclick="rollDice()">Roll</button>
-<div id="diceResult"></div>
-</div></div>
-
-<!-- COIN -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Dice
+    <div><button onclick="minimizeApp('dice')">-</button><button onclick="closeApp('dice')">X</button></div>
+  </div>
+  <div class="content">
+    <button onclick="rollDice()">Roll</button>
+    <div id="diceResult"></div>
+  </div>
+</div>
 
 <div id="coin" class="window">
-<div class="titlebar">Coin
-<div><button onclick="minimizeApp('coin')">-</button><button onclick="closeApp('coin')">X</button></div></div>
-<div class="content">
-<button onclick="flipCoin()">Flip</button>
-<div id="coinResult"></div>
-</div></div>
-
-<!-- COLOR -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Coin
+    <div><button onclick="minimizeApp('coin')">-</button><button onclick="closeApp('coin')">X</button></div>
+  </div>
+  <div class="content">
+    <button onclick="flipCoin()">Flip</button>
+    <div id="coinResult"></div>
+  </div>
+</div>
 
 <div id="color" class="window">
-<div class="titlebar">Color Generator
-<div><button onclick="minimizeApp('color')">-</button><button onclick="closeApp('color')">X</button></div></div>
-<div class="content">
-<button onclick="genColor()">Generate</button>
-<div id="colorText"></div>
-</div></div>
-
-<!-- AGE -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Color
+    <div><button onclick="minimizeApp('color')">-</button><button onclick="closeApp('color')">X</button></div>
+  </div>
+  <div class="content">
+    <button onclick="genColor()">Random</button>
+    <button onclick="genGradient()">Gradient</button>
+    <div id="colorText"></div>
+  </div>
+</div>
 
 <div id="age" class="window">
-<div class="titlebar">Age Calculator
-<div><button onclick="minimizeApp('age')">-</button><button onclick="closeApp('age')">X</button></div></div>
-<div class="content">
-<input type="date" id="birth">
-<button onclick="calcAge()">Calculate</button>
-<div id="ageResult"></div>
-</div></div>
-
-<!-- BASE64 -->
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Age
+    <div><button onclick="minimizeApp('age')">-</button><button onclick="closeApp('age')">X</button></div>
+  </div>
+  <div class="content">
+    <input type="date" id="birth">
+    <button onclick="calcAge()">Calculate</button>
+    <div id="ageResult"></div>
+  </div>
+</div>
 
 <div id="b64" class="window">
-<div class="titlebar">Base64
-<div><button onclick="minimizeApp('b64')">-</button><button onclick="closeApp('b64')">X</button></div></div>
-<div class="content">
-<input id="b64Input" placeholder="Text">
-<button onclick="encodeB64()">Encode</button>
-<div id="b64Result"></div>
-<input id="b64DecodeInput" placeholder="Decode">
-<button onclick="decodeB64()">Decode</button>
-<div id="b64DecodeResult"></div>
-</div></div>
+  <div class="titlebar" onmousedown="dragStart(event,this.parentElement)">Base64
+    <div><button onclick="minimizeApp('b64')">-</button><button onclick="closeApp('b64')">X</button></div>
+  </div>
+  <div class="content">
+    <input id="b64Input">
+    <button onclick="encodeB64()">Encode</button>
+    <div id="b64Result"></div>
+    <input id="b64DecodeInput">
+    <button onclick="decodeB64()">Decode</button>
+    <div id="b64DecodeResult"></div>
+  </div>
+</div>
 
 <!-- TASKBAR -->
 
 <div id="taskbar">
-<button id="startBtn" onclick="toggleStart()">Start</button>
-<div id="taskApps"></div>
-<div id="clock"></div>
+  <button id="startBtn" onclick="toggleStart()">Start</button>
+  <div id="taskApps"></div>
+  <div id="clock"></div>
 </div>
 
-<div id="startMenu"></div>
+<div id="startMenu">
+  <div class="startItem" onclick="openApp('vault')">Vault</div>
+  <div class="startItem" onclick="openApp('code')">Code</div>
+  <div class="startItem" onclick="openApp('calc')">Calculator</div>
+</div>
 
 <script src="script.js"></script>
-
-<script>
-// OS SYSTEM (same as yours)
-function openApp(id){let el=document.getElementById(id);el.style.display="block";el.style.zIndex=Date.now();addTask(id);}
-function closeApp(id){document.getElementById(id).style.display="none";removeTask(id);}
-function minimizeApp(id){document.getElementById(id).style.display="none";}
-function addTask(id){
- if(document.getElementById("task_"+id))return;
- let btn=document.createElement("div");
- btn.className="taskApp";btn.id="task_"+id;btn.innerText=id;
- btn.onclick=()=>openApp(id);
- taskApps.appendChild(btn);
-}
-function removeTask(id){let el=document.getElementById("task_"+id);if(el)el.remove();}
-let current=null,offsetX=0,offsetY=0;
-function dragStart(e,el){current=el;offsetX=e.clientX-el.offsetLeft;offsetY=e.clientY-el.offsetTop;document.onmousemove=drag;document.onmouseup=()=>current=null;}
-function drag(e){if(!current)return;current.style.left=(e.clientX-offsetX)+"px";current.style.top=(e.clientY-offsetY)+"px";}
-function toggleStart(){startMenu.style.display=startMenu.style.display==="block"?"none":"block";}
-setInterval(()=>{let n=new Date();clock.innerText=n.getHours()+":"+n.getMinutes().toString().padStart(2,"0");},1000);
-
-// SIMPLE CALC (so it works if missing)
-function calculate(){calcResult.innerText=eval(calcInput.value);}
-</script>
 
 </body>
 </html>
