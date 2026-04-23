@@ -596,3 +596,52 @@ function runCode() {
     document.getElementById("codeOutput").innerText = e;
   }
 }
+
+// ===== NOTES =====
+function saveNotes(){
+  localStorage.setItem("notes", notesArea.value);
+}
+notesArea.value = localStorage.getItem("notes") || "";
+
+// ===== TODO =====
+function addTodo(){
+  const li = document.createElement("li");
+  li.textContent = todoInput.value;
+  todoList.appendChild(li);
+}
+
+// ===== CALCULATOR =====
+function calculate(){
+  try{
+    calcResult.textContent = eval(calcInput.value);
+  }catch{
+    calcResult.textContent = "Error";
+  }
+}
+
+// ===== WEATHER =====
+async function getWeather(){
+  const res = await fetch(`https://wttr.in/${cityInput.value}?format=3`);
+  weatherResult.textContent = await res.text();
+}
+
+// ===== BASE64 =====
+function encodeB64(){
+  b64Result.textContent = btoa(b64Input.value);
+}
+function decodeB64(){
+  b64DecodeResult.textContent = atob(b64DecodeInput.value);
+}
+
+// ===== SIMPLE AI =====
+function sendAI(){
+  const msg = chatInput.value;
+  chatBox.innerHTML += `<div>You: ${msg}</div>`;
+
+  let reply = "Interesting...";
+  if(msg.includes("hello")) reply = "Hi 👋";
+  if(msg.includes("time")) reply = new Date().toLocaleTimeString();
+
+  chatBox.innerHTML += `<div>AI: ${reply}</div>`;
+  chatInput.value = "";
+}
