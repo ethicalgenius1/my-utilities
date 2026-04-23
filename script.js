@@ -142,13 +142,7 @@ function createApp(id, title, content){
   document.getElementById("startMenu").appendChild(item);
 }
 
-createApp("ai","🤖 AI Chat",`
-<textarea id="aiInput"></textarea>
-<button onclick="askAI()">Ask</button>
-<div id="aiOutput"></div>
-`);
-
-async function askAI(){
+ async function askAI(){
  let msg = aiInput.value;
  let res = await fetch("https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",{
   method:"POST",
@@ -159,26 +153,16 @@ async function askAI(){
  aiOutput.innerText = data.generated_text || "No reply";
 }
 
-createApp("links","🔗 Links",`
-<a href="https://google.com" target="_blank">Google</a><br>
-<a href="https://youtube.com" target="_blank">YouTube</a>
-`);
-
-createApp("bible","✝️ Daily Quote",`
-<button onclick="getVerse()">Get Verse</button>
-<div id="verse"></div>
-`);
+function playYT(){
+ let id=yt.value.split("v=")[1];
+ player.src="https://www.youtube.com/embed/"+id;
+}
 
 async function getVerse(){
  let r = await fetch("https://beta.ourmanna.com/api/v1/get/?format=json");
  let d = await r.json();
  verse.innerText = d.verse.details.text;
 }
-
-createApp("pass","🔐 Password Gen",`
-<button onclick="genPass()">Generate</button>
-<div id="passOut"></div>
-`);
 
 function genPass(){
  let c="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
@@ -187,16 +171,63 @@ function genPass(){
  passOut.innerText=p;
 }
 
-createApp("ip","🌐 IP Info",`
-<button onclick="getIP()">Get IP</button>
-<div id="ipOut"></div>
-`);
-
 async function getIP(){
  let r = await fetch("https://api.ipify.org?format=json");
  let d = await r.json();
  ipOut.innerText = d.ip;
 }
+
+function speakText(){
+ let u=new SpeechSynthesisUtterance(ttsText.value);
+ speechSynthesis.speak(u);
+}
+
+function calcPercent(){
+ pOut.innerText=((p1.value/p2.value)*100).toFixed(2)+"%";
+}
+
+async function speedTest(){
+ let t1=Date.now();
+ await fetch("https://speed.hetzner.de/10MB.bin");
+ let t2=Date.now();
+ speedOut.innerText=(10/((t2-t1)/1000)).toFixed(2)+" MB/s";
+}
+
+let opts=[];
+function addOpt(){opts.push(opt.value);}
+function pick(){decOut.innerText=opts[Math.floor(Math.random()*opts.length)];}
+
+window.onload = function(){
+
+  createApp("ai","🤖 AI Chat",`
+    <textarea id="aiInput"></textarea>
+    <button onclick="askAI()">Ask</button>
+    <div id="aiOutput"></div>
+  `);
+
+  createApp("links","🔗 Links",`
+<a href="https://google.com" target="_blank">Google</a><br>
+<a href="https://youtube.com" target="_blank">YouTube</a>
+`);
+
+  createApp("bible","✝️ Daily Quote",`
+<button onclick="getVerse()">Get Verse</button>
+<div id="verse"></div>
+`);
+
+createApp("pass","🔐 Password Gen",`
+<button onclick="genPass()">Generate</button>
+<div id="passOut"></div>
+`);
+
+
+
+createApp("ip","🌐 IP Info",`
+<button onclick="getIP()">Get IP</button>
+<div id="ipOut"></div>
+`);
+
+
 
 createApp("draw","🎨 Drawing",`
 <canvas id="drawCanvas" width="300" height="200" style="border:1px solid"></canvas>
@@ -220,10 +251,7 @@ createApp("tts","🔊 Speak",`
 <button onclick="speakText()">Speak</button>
 `);
 
-function speakText(){
- let u=new SpeechSynthesisUtterance(ttsText.value);
- speechSynthesis.speak(u);
-}
+
 
 createApp("percent","📊 Percent",`
 <input id="p1" placeholder="part">
@@ -232,21 +260,14 @@ createApp("percent","📊 Percent",`
 <div id="pOut"></div>
 `);
 
-function calcPercent(){
- pOut.innerText=((p1.value/p2.value)*100).toFixed(2)+"%";
-}
+
 
 createApp("speed","⚡ Speed Test",`
 <button onclick="speedTest()">Run</button>
 <div id="speedOut"></div>
 `);
 
-async function speedTest(){
- let t1=Date.now();
- await fetch("https://speed.hetzner.de/10MB.bin");
- let t2=Date.now();
- speedOut.innerText=(10/((t2-t1)/1000)).toFixed(2)+" MB/s";
-}
+
 
 createApp("decision","🎯 Decide",`
 <input id="opt">
@@ -255,20 +276,11 @@ createApp("decision","🎯 Decide",`
 <div id="decOut"></div>
 `);
 
-let opts=[];
-function addOpt(){opts.push(opt.value);}
-function pick(){decOut.innerText=opts[Math.floor(Math.random()*opts.length)];}
-
 createApp("music","🎵 Music",`
 <input id="yt">
 <button onclick="playYT()">Play</button>
 <iframe id="player" width="100%" height="200"></iframe>
 `);
-
-function playYT(){
- let id=yt.value.split("v=")[1];
- player.src="https://www.youtube.com/embed/"+id;
-}
 
 createApp("wheel","🎡 Wheel",`
 <iframe src="https://wheelofnames.com/" width="100%" height="300"></iframe>
@@ -279,3 +291,6 @@ createApp("googlepp","🔍 Google++",`
 <div class="gcse-search"></div>
 `);
 
+  // add ALL your other createApp() calls here
+
+};
