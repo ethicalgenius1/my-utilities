@@ -527,3 +527,17 @@ function decodeB64(){
   b64DecodeResult.textContent = "Invalid Base64";
  }
 }
+
+function saveVault() {
+  let pass = document.getElementById("vaultPass").value;
+  let data = document.getElementById("vaultData").value;
+  localStorage.setItem("vault_" + pass, btoa(data));
+}
+
+function loadVault() {
+  let pass = document.getElementById("vaultPass").value;
+  let data = localStorage.getItem("vault_" + pass);
+  if (data) {
+    document.getElementById("vaultData").value = atob(data);
+  }
+}
