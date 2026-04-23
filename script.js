@@ -541,3 +541,58 @@ function loadVault() {
     document.getElementById("vaultData").value = atob(data);
   }
 }
+
+function saveSession() {
+  let inputs = document.querySelectorAll("input, textarea");
+  let data = {};
+  inputs.forEach((el, i) => data[i] = el.value);
+  localStorage.setItem("session", JSON.stringify(data));
+}
+
+function loadSession() {
+  let data = JSON.parse(localStorage.getItem("session") || "{}");
+  let inputs = document.querySelectorAll("input, textarea");
+  inputs.forEach((el, i) => {
+    if (data[i]) el.value = data[i];
+  });
+}
+
+function addTimer() {
+  let id = Date.now();
+  let div = document.createElement("div");
+  div.innerHTML = `
+    <span id="t${id}">0</span>
+    <button onclick="startTimer(${id})">Start</button>
+  `;
+  document.getElementById("timers").appendChild(div);
+}
+
+function startTimer(id) {
+  let el = document.getElementById("t" + id);
+  let t = 0;
+  setInterval(() => {
+    t++;
+    el.innerText = t;
+  }, 1000);
+}
+
+document.getElementById("cmdInput").addEventListener("input", e => {
+  let val = e.target.value.toLowerCase();
+  let buttons = document.querySelectorAll("#menu button");
+
+  buttons.forEach(btn => {
+    if (btn.innerText.toLowerCase().includes(val)) {
+      btn.click();
+    }
+  });
+});
+
+function runCode() {
+  let code = document.getElementById("codeInput").value;
+  try {
+    let result = eval(code);
+    document.getElementById("codeOutput").innerText = result;
+  } catch (e) {
+    document.getElementById("codeOutput").innerText = e;
+  }
+}
