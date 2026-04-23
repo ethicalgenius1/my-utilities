@@ -21,8 +21,6 @@
   <button onclick="openTool('todo')">✅ To-Do</button>
   <button onclick="openTool('links')">🔗 Links</button>
   <button onclick="openTool('games')">🎮 Game</button>
-
-  <!-- NEW -->
   <button onclick="openTool('timer')">⏱️ Timer</button>
   <button onclick="openTool('quotes')">💡 Quotes</button>
   <button onclick="openTool('color')">🎨 Color</button>
@@ -89,6 +87,11 @@
 <button onclick="openTool('wheel')">🎡 Spin Wheel</button>
   <button onclick="openTool('base64enc')">🔐 Base64 Encode</button>
 <button onclick="openTool('base64dec')">🔓 Base64 Decode</button>
+  <button onclick="openTool('vault')">🔑 Vault</button>
+<button onclick="openTool('session')">💾 Session Saver</button>
+<button onclick="openTool('multiTimer')">⏱️ Multi Timer</button>
+<button onclick="openTool('command')">⚡ Command</button>
+<button onclick="openTool('devEval')">💻 Code Runner</button>
 </main>
 
 <section id="tools">
@@ -546,6 +549,14 @@
   <textarea id="b64DecodeInput"></textarea>
   <button onclick="decodeB64()">Decode</button>
   <p id="b64DecodeResult"></p>
+</div>
+
+  <div id="vault" class="tool">
+  <h2>🔐 Vault</h2>
+  <input type="password" id="vaultPass" placeholder="Enter password">
+  <textarea id="vaultData" placeholder="Secret notes..."></textarea>
+  <button onclick="saveVault()">Save</button>
+  <button onclick="loadVault()">Load</button>
 </div>
   
 </section>
