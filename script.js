@@ -197,6 +197,31 @@ let opts=[];
 function addOpt(){opts.push(opt.value);}
 function pick(){decOut.innerText=opts[Math.floor(Math.random()*opts.length)];}
 
+function startBulkDownload(){
+
+ let songs = bulkSongs.value
+   .split("\n")
+   .map(v => v.trim())
+   .filter(v => v);
+
+ if(!songs.length){
+   bulkStatus.innerText = "No songs entered";
+   return;
+ }
+
+ // save queue
+ localStorage.setItem(
+   "musicQueue",
+   JSON.stringify(songs)
+ );
+
+ bulkStatus.innerText =
+   songs.length + " songs queued";
+
+ // open mp3cow
+ window.open("https://mp3cow.com/");
+}
+
 window.onload = function(){
 
   createApp("ai","🤖 AI Chat",`
