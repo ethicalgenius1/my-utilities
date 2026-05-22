@@ -291,6 +291,17 @@ createApp("googlepp","🔍 Google++",`
 <div class="gcse-search"></div>
 `);
 
+createApp("bulkdl","📥 Bulk Downloader",`
+<textarea id="bulkSongs"
+placeholder="Enter one song per line"></textarea>
+
+<button onclick="startBulkDownload()">
+Start Download
+</button>
+
+<div id="bulkStatus"></div>
+`);
+
   // add ALL your other createApp() calls here
 
 };
