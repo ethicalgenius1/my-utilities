@@ -611,16 +611,12 @@ function startBulkDownload(){
     return;
   }
 
-  localStorage.setItem(
-    "musicQueue",
-    JSON.stringify(songs)
-  );
-
-  bulkStatus.innerText =
-    "Queue saved. Opening MP3Cow...";
+  // PASS THROUGH URL
+  let encoded =
+    encodeURIComponent(JSON.stringify(songs));
 
   window.open(
-    "https://mp3cow.com/",
+    "https://mp3cow.com/#" + encoded,
     "_blank"
   );
 }
