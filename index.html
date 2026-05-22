@@ -84,6 +84,7 @@
 <button onclick="openTool('passwordList')">🔑 Password List</button>
 <button onclick="openTool('chatLive')">💬 Live Chat</button>
 <button onclick="openTool('musicRoom')">🎵 Music Room</button>
+  <button onclick="openTool('bulkMusic')">📥 Bulk Music</button>
 <button onclick="openTool('wheel')">🎡 Spin Wheel</button>
   <button onclick="openTool('base64enc')">🔐 Base64 Encode</button>
 <button onclick="openTool('base64dec')">🔓 Base64 Decode</button>
@@ -525,6 +526,22 @@
   <input id="ytLink" placeholder="Paste YouTube URL">
   <button onclick="loadYT()">Play</button>
   <iframe id="ytPlayer" width="100%" height="200"></iframe>
+</div>
+
+  <div id="bulkMusic" class="tool hidden">
+  <h2>Bulk MP3 Downloader</h2>
+
+  <textarea
+    id="bulkSongs"
+    placeholder="Enter song names, one per line"
+    style="width:100%;height:200px;"
+  ></textarea>
+
+  <button onclick="startBulkDownload()">
+    Start Bulk Download
+  </button>
+
+  <p id="bulkStatus"></p>
 </div>
 
   <div id="wheel" class="tool hidden">
