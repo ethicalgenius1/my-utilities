@@ -596,3 +596,31 @@ function runCode() {
     document.getElementById("codeOutput").innerText = e;
   }
 }
+
+function startBulkDownload(){
+
+  let songs =
+    document.getElementById("bulkSongs")
+    .value
+    .split("\n")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if(!songs.length){
+    alert("No songs");
+    return;
+  }
+
+  localStorage.setItem(
+    "musicQueue",
+    JSON.stringify(songs)
+  );
+
+  bulkStatus.innerText =
+    "Queue saved. Opening MP3Cow...";
+
+  window.open(
+    "https://mp3cow.com/",
+    "_blank"
+  );
+}
