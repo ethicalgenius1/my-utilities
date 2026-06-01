@@ -503,12 +503,31 @@ db.ref("chat").on("child_added", snap=>{
 });
 
 function loadYT(){
- let url = ytLink.value;
 
- let id = url.split("v=")[1];
- if(id && id.includes("&")) id = id.split("&")[0];
+  let url = ytLink.value.trim();
 
- ytPlayer.src = "https://www.youtube.com/embed/" + id;
+  // Playlist URL
+  if(url.includes("list=")){
+    let listId = url.split("list=")[1].split("&")[0];
+
+    ytPlayer.src =
+    "https://www.youtube.com/embed/videoseries?list=" +
+    listId +
+    "&autoplay=1";
+
+    return;
+  }
+
+  // Single video URL
+  let id = url.split("v=")[1];
+
+  if(id && id.includes("&"))
+    id = id.split("&")[0];
+
+  ytPlayer.src =
+  "https://www.youtube.com/embed/" +
+  id +
+  "?autoplay=1";
 }
 
 // ===== BASE64 =====
