@@ -473,8 +473,34 @@ function genPassPro(){
 function convertTime(){ timeResult.textContent=(minutesInput.value/60).toFixed(2)+" hours"; }
 
 // AGE
-function calcAge(){
- ageResult.textContent=new Date().getFullYear()-new Date(birth.value).getFullYear();
+function calcAge() {
+  const birthDate = new Date(birth.value);
+  const today = new Date();
+
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+
+  // adjust if birthday hasn't happened yet this year
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  // adjust if current day is before birth day in the month
+  if (today.getDate() < birthDate.getDate()) {
+    months--;
+    if (months < 0) {
+      months = 11;
+      years--;
+    }
+  }
+
+  if (years < 0) {
+    ageResult.textContent = "Invalid date";
+    return;
+  }
+
+  ageResult.textContent = `${years} years, ${months} months`;
 }
 
 // SPEED
