@@ -189,6 +189,60 @@ async function getWeather(){
  weatherResult.textContent = data;
 }
 
+//==== cv maker=====
+async function generateCV() {
+
+  const { jsPDF } = window.jspdf;
+
+  const pdf = new jsPDF();
+
+  const name = cvName.value;
+  const title = cvTitle.value;
+  const email = cvEmail.value;
+  const phone = cvPhone.value;
+  const summary = cvSummary.value;
+  const exp = cvExperience.value;
+  const edu = cvEducation.value;
+  const skills = cvSkills.value;
+
+  pdf.setFontSize(24);
+  pdf.text(name, 20, 20);
+
+  pdf.setFontSize(14);
+  pdf.text(title, 20, 30);
+
+  pdf.setFontSize(11);
+  pdf.text(`${email} | ${phone}`, 20, 40);
+
+  pdf.line(20, 45, 190, 45);
+
+  pdf.setFontSize(16);
+  pdf.text("Profile", 20, 60);
+
+  pdf.setFontSize(11);
+  pdf.text(summary, 20, 70, { maxWidth: 170 });
+
+  pdf.setFontSize(16);
+  pdf.text("Experience", 20, 100);
+
+  pdf.setFontSize(11);
+  pdf.text(exp, 20, 110, { maxWidth: 170 });
+
+  pdf.setFontSize(16);
+  pdf.text("Education", 20, 150);
+
+  pdf.setFontSize(11);
+  pdf.text(edu, 20, 160, { maxWidth: 170 });
+
+  pdf.setFontSize(16);
+  pdf.text("Skills", 20, 190);
+
+  pdf.setFontSize(11);
+  pdf.text(skills, 20, 200, { maxWidth: 170 });
+
+  pdf.save("CV.pdf");
+}
+
 // ===== STOPWATCH =====
 let sw=0, swi;
 function startSW(){
