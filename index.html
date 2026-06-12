@@ -93,10 +93,33 @@
 <button onclick="openTool('multiTimer')">⏱️ Multi Timer</button>
 <button onclick="openTool('command')">⚡ Command</button>
 <button onclick="openTool('devEval')">💻 Code Runner</button>
+  <button onclick="openTool('cvMaker')">📄 CV Maker</button>
 </main>
 
 <section id="tools">
 
+<div id="cvMaker" class="tool hidden">
+  <h2>📄 Quick CV Maker</h2>
+
+  <input id="cvName" placeholder="Full Name"><br><br>
+
+  <input id="cvTitle" placeholder="Job Title"><br><br>
+
+  <input id="cvEmail" placeholder="Email"><br><br>
+
+  <input id="cvPhone" placeholder="Phone"><br><br>
+
+  <textarea id="cvSummary" placeholder="Professional Summary"></textarea><br><br>
+
+  <textarea id="cvExperience" placeholder="Experience"></textarea><br><br>
+
+  <textarea id="cvEducation" placeholder="Education"></textarea><br><br>
+
+  <textarea id="cvSkills" placeholder="Skills (comma separated)"></textarea><br><br>
+
+  <button onclick="generateCV()">Generate PDF</button>
+</div>
+  
 <div id="ai" class="tool hidden">
   <h2>AI Chat</h2>
   <div id="chatBox"></div>
@@ -604,6 +627,8 @@
   
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
 <script src="script.js"></script>
 </body>
 </html>
